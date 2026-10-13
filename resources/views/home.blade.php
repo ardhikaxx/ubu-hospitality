@@ -25,6 +25,20 @@
 <!-- Spacer for search widget overlap -->
 <div style="height: 4rem;"></div>
 
+<!-- OTA & Distribution Partners (Authentic Assets from ubuvilla.codeapps.xyz) -->
+<section class="py-4 border-bottom bg-white">
+    <div class="container text-center">
+        <p class="small text-muted text-uppercase fw-semibold mb-3" style="letter-spacing: 1px;">Telah Terhubung & Terpercaya di Platform Wisata Terkemuka</p>
+        <div class="d-flex flex-wrap align-items-center justify-content-center gap-4 gap-md-5">
+            <img src="{{ asset('images/branding/ota-booking.svg') }}" alt="Booking.com" height="24" class="opacity-75">
+            <img src="{{ asset('images/branding/ota-traveloka.svg') }}" alt="Traveloka" height="26" class="opacity-75">
+            <img src="{{ asset('images/branding/ota-tiket.png') }}" alt="Tiket.com" height="24" class="opacity-75">
+            <img src="{{ asset('images/branding/ota-airbnb.svg') }}" alt="Airbnb" height="26" class="opacity-75">
+            <img src="{{ asset('images/branding/ota-agoda.png') }}" alt="Agoda" height="28" class="opacity-75">
+        </div>
+    </div>
+</section>
+
 <!-- Active Promotions Section (Traveloka-inspired clarity) -->
 @if(isset($activePromos) && $activePromos->isNotEmpty())
 <section class="section-padding bg-white">
@@ -163,6 +177,34 @@
     </div>
 </section>
 @endif
+
+<!-- Official Brand Video (Authentic Promotional Video from ubuvilla.codeapps.xyz) -->
+<section class="section-padding text-white position-relative" style="background: linear-gradient(135deg, #0b1a20 0%, #00758f 100%);">
+    <div class="container">
+        <div class="row align-items-center g-4">
+            <div class="col-lg-5 text-center text-lg-start">
+                <span class="badge bg-warning text-dark fw-bold text-uppercase px-3 py-1 mb-3">The Ultimate Luxury Experience</span>
+                <h2 class="font-serif display-6 fw-bold text-white mb-3">Enjoy The Best Moments of Life</h2>
+                <p class="text-white-50 mb-4">
+                    Saksikan pesona keindahan dan kehangatan Ubu Villa di Yogyakarta. Dari private pool yang luas, kenyamanan ruang keluarga, hingga layanan butler personal yang siap menyempurnakan waktu liburan Anda.
+                </p>
+                <div class="d-flex flex-wrap gap-2 justify-content-center justify-content-lg-start">
+                    <a href="{{ route('stay.index') }}" class="btn btn-ubu-accent px-4 py-2 text-white">
+                        <i class="bi bi-houses me-1"></i> Eksplorasi Villa
+                    </a>
+                    <a href="https://www.youtube.com/@ubuvillaindonesia" target="_blank" class="btn btn-outline-light px-4 py-2">
+                        <i class="bi bi-youtube me-1"></i> Channel Resmi
+                    </a>
+                </div>
+            </div>
+            <div class="col-lg-7">
+                <div class="ratio ratio-16x9 rounded-4 overflow-hidden shadow-lg border border-white border-opacity-25">
+                    <iframe src="https://www.youtube.com/embed/7LPZdvViEME" title="Ubu Villa Official Promotional Video" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 
 <!-- Partnership Call to Action Banner (RedDoorz-inspired clarity) -->
 <section class="py-5" style="background: linear-gradient(135deg, #16201b 0%, #1b3b2b 100%); color: #ffffff;">

@@ -15,6 +15,9 @@
     <!-- Bootstrap Icons CDN -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="{{ asset('images/branding/favicon.png') }}" type="image/png">
+
     <!-- Custom CSS -->
     <link rel="stylesheet" href="{{ asset('css/variables.css') }}">
     <link rel="stylesheet" href="{{ asset('css/admin.css') }}">
@@ -25,7 +28,8 @@
     <div class="admin-wrapper">
         <!-- Sidebar -->
         <aside class="admin-sidebar" id="adminSidebar">
-            <div class="sidebar-header">
+            <div class="sidebar-header d-flex align-items-center gap-2">
+                <img src="{{ asset('images/branding/logo-dark.svg') }}" alt="Ubu Logo" height="36" class="bg-white p-1 rounded-2 shadow-sm">
                 <div>
                     <div class="sidebar-brand-title">UBU HOSPITALITY</div>
                     <div class="sidebar-brand-badge">CMS PLATFORM</div>

@@ -240,6 +240,49 @@
                 </div>
             @endif
 
+            <!-- Official Video Tour (YouTube Embed from ubuvilla.com) -->
+            @if(!empty($property->video_url))
+                <div class="card border rounded-4 p-4 shadow-sm mb-4 bg-white">
+                    <div class="d-flex flex-wrap align-items-center justify-content-between gap-2 mb-3">
+                        <div>
+                            <span class="badge bg-danger text-white mb-1"><i class="bi bi-youtube me-1"></i> Video Tur Resmi</span>
+                            <h4 class="font-serif fw-bold text-dark mb-0">Video Suasana Nyata {{ $property->name }}</h4>
+                        </div>
+                        @if(!empty($property->virtual_tour_url))
+                            <a href="{{ $property->virtual_tour_url }}" target="_blank" class="btn btn-sm btn-outline-dark">
+                                <i class="bi bi-badge-3d me-1"></i> Tur 360° Virtual
+                            </a>
+                        @endif
+                    </div>
+                    <div class="ratio ratio-16x9 rounded-3 overflow-hidden shadow-sm">
+                        <iframe src="{{ $property->video_url }}" title="Tur Video Resmi {{ $property->name }}" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+                    </div>
+                </div>
+            @endif
+
+            <!-- Interactive Google Maps Embed (From ubuvilla.com) -->
+            @if(!empty($property->google_maps_embed_url))
+                <div class="card border rounded-4 p-4 shadow-sm mb-4 bg-white">
+                    <div class="d-flex align-items-center justify-content-between mb-3">
+                        <div>
+                            <span class="badge bg-success-subtle text-success border border-success-subtle mb-1"><i class="bi bi-geo-alt-fill me-1"></i> Lokasi & Navigasi</span>
+                            <h4 class="font-serif fw-bold text-dark mb-0">Peta Lokasi Interaktif</h4>
+                        </div>
+                        @if($property->google_maps_url)
+                            <a href="{{ $property->google_maps_url }}" target="_blank" class="btn btn-sm btn-outline-secondary">
+                                Rute di Google Maps <i class="bi bi-box-arrow-up-right ms-1"></i>
+                            </a>
+                        @endif
+                    </div>
+                    <div class="ratio ratio-16x9 rounded-3 overflow-hidden border">
+                        <iframe src="{{ $property->google_maps_embed_url }}" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    </div>
+                    <p class="small text-muted mt-2 mb-0">
+                        <i class="bi bi-info-circle me-1"></i> {{ $property->address }}, {{ $property->city }}
+                    </p>
+                </div>
+            @endif
+
             <!-- Guest Reviews for this Property -->
             @if($reviews->isNotEmpty())
                 <div class="card border rounded-4 p-4 shadow-sm mb-4 bg-white">

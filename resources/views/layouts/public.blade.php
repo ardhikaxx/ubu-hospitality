@@ -24,6 +24,9 @@
     <meta name="keywords" content="{{ $seo['keywords'] }}">
     <link rel="canonical" href="{{ $seo['canonical'] }}">
 
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="{{ asset('images/branding/favicon.png') }}" type="image/png">
+
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="{{ $seo['og_type'] }}">
     <meta property="og:url" content="{{ $seo['canonical'] }}">
@@ -75,10 +78,13 @@
     <header class="site-header">
         <nav class="navbar navbar-expand-lg site-navbar">
             <div class="container">
-                <!-- Brand Logo -->
-                <a class="navbar-brand navbar-brand-logo" href="{{ url('/') }}">
-                    <span class="navbar-brand-title">UBU HOSPITALITY</span>
-                    <span class="navbar-brand-sub">ASSET MANAGEMENT</span>
+                <!-- Brand Logo (Authentic Logo from ubuvilla.codeapps.xyz) -->
+                <a class="navbar-brand navbar-brand-logo d-flex align-items-center gap-2" href="{{ url('/') }}">
+                    <img src="{{ asset('images/branding/logo-dark.svg') }}" alt="Ubu Hospitality Logo" height="40" class="d-inline-block">
+                    <div class="d-flex flex-column">
+                        <span class="navbar-brand-title">UBU HOSPITALITY</span>
+                        <span class="navbar-brand-sub">ASSET MANAGEMENT</span>
+                    </div>
                 </a>
 
                 <!-- Mobile Buttons -->
@@ -334,8 +340,9 @@
     <footer class="site-footer">
         <div class="container">
             <div class="row g-4 justify-content-between">
-                <!-- Col 1: Brand Info -->
+                <!-- Col 1: Brand Info (Authentic Logo & Contacts) -->
                 <div class="col-lg-4 col-md-6">
+                    <img src="{{ asset('images/branding/logo-footer.png') }}" alt="Ubu Hospitality Logo" height="46" class="mb-3 d-block">
                     <h4 class="text-white font-serif mb-2">UBU HOSPITALITY</h4>
                     <p class="text-white small mb-3">
                         Perusahaan manajemen aset hospitality terkemuka di Indonesia yang mengelola portfolio villa privat, akomodasi syariah terpercaya, dan glamping berkarakter.
@@ -344,16 +351,17 @@
                         <i class="bi bi-geo-alt text-warning me-1"></i> {{ \App\Models\Setting::get('contact_address', 'Jl. Gito Gati No. 88, Sariharjo, Ngaglik, Sleman, D.I. Yogyakarta 55581') }}
                     </p>
                     <p class="small text-white mb-1">
-                        <i class="bi bi-telephone text-warning me-1"></i> {{ \App\Models\Setting::get('contact_phone', '(0274) 889977') }}
+                        <i class="bi bi-telephone text-warning me-1"></i> {{ \App\Models\Setting::get('contact_phone', '0823-2000-3297') }}
                     </p>
                     <p class="small text-white mb-3">
-                        <i class="bi bi-envelope text-warning me-1"></i> {{ \App\Models\Setting::get('contact_email', 'reservation@ubuhospitality.com') }}
+                        <i class="bi bi-envelope text-warning me-1"></i> {{ \App\Models\Setting::get('contact_email', 'reservation@ubuvilla.com') }}
                     </p>
                     <div class="d-flex gap-2">
-                        <a href="{{ \App\Models\Setting::get('social_instagram', 'https://instagram.com') }}" target="_blank" class="btn btn-sm btn-outline-light rounded-circle p-2" style="width: 36px; height: 36px;"><i class="bi bi-instagram"></i></a>
-                        <a href="{{ \App\Models\Setting::get('social_tiktok', 'https://tiktok.com') }}" target="_blank" class="btn btn-sm btn-outline-light rounded-circle p-2" style="width: 36px; height: 36px;"><i class="bi bi-tiktok"></i></a>
-                        <a href="{{ \App\Models\Setting::get('social_youtube', 'https://youtube.com') }}" target="_blank" class="btn btn-sm btn-outline-light rounded-circle p-2" style="width: 36px; height: 36px;"><i class="bi bi-youtube"></i></a>
-                        <a href="{{ \App\Models\Setting::get('social_linkedin', 'https://linkedin.com') }}" target="_blank" class="btn btn-sm btn-outline-light rounded-circle p-2" style="width: 36px; height: 36px;"><i class="bi bi-linkedin"></i></a>
+                        <a href="{{ \App\Models\Setting::get('social_whatsapp', 'https://api.whatsapp.com/send?phone=+6282320003297') }}" target="_blank" class="btn btn-sm btn-outline-light rounded-circle p-2" style="width: 36px; height: 36px;" title="WhatsApp"><i class="bi bi-whatsapp"></i></a>
+                        <a href="{{ \App\Models\Setting::get('social_instagram', 'https://www.instagram.com/ubuvilla/') }}" target="_blank" class="btn btn-sm btn-outline-light rounded-circle p-2" style="width: 36px; height: 36px;" title="Instagram"><i class="bi bi-instagram"></i></a>
+                        <a href="{{ \App\Models\Setting::get('social_tiktok', 'https://www.tiktok.com/@ubuvilla') }}" target="_blank" class="btn btn-sm btn-outline-light rounded-circle p-2" style="width: 36px; height: 36px;" title="TikTok"><i class="bi bi-tiktok"></i></a>
+                        <a href="{{ \App\Models\Setting::get('social_youtube', 'https://www.youtube.com/@ubuvillaindonesia') }}" target="_blank" class="btn btn-sm btn-outline-light rounded-circle p-2" style="width: 36px; height: 36px;" title="YouTube"><i class="bi bi-youtube"></i></a>
+                        <a href="{{ \App\Models\Setting::get('social_facebook', 'https://www.facebook.com/ubuvillaindonesia/') }}" target="_blank" class="btn btn-sm btn-outline-light rounded-circle p-2" style="width: 36px; height: 36px;" title="Facebook"><i class="bi bi-facebook"></i></a>
                     </div>
                 </div>
 

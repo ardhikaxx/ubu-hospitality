@@ -1,11 +1,12 @@
 :root {
-    /* Brand Identity Colors */
-    --ubu-primary: #1b3b2b;
-    --ubu-primary-hover: #142d21;
-    --ubu-primary-light: #e8efe9;
-    --ubu-accent: #c5a059;
-    --ubu-accent-hover: #b08d48;
-    --ubu-accent-light: #fdf8ee;
+    /* Authentic Brand Identity Colors (From ubuvilla.com & ubuvilla.codeapps.xyz) */
+    --ubu-primary: #00758f;           /* Authentic Ubu Deep Teal / Cyan */
+    --ubu-primary-hover: #005d72;     /* Darker Teal Hover */
+    --ubu-primary-light: #e6f3f6;     /* Soft Sage/Teal Light */
+    --ubu-accent: #aa8453;            /* Authentic Ubu Luxury Warm Gold */
+    --ubu-accent-hover: #926f42;      /* Deep Gold Hover */
+    --ubu-accent-light: #fbf7f0;      /* Warm Gold Light */
+    --ubu-teal-gradient: linear-gradient(135deg, #0085a2 0%, #006771 100%);
 
     /* Secondary Brand Accents */
     --buruj-primary: #0f2c3d;
@@ -13,14 +14,14 @@
 
     /* Neutrals */
     --ubu-dark: #121815;
-    --ubu-text-main: #272f2b;
-    --ubu-text-muted: #64748b;
+    --ubu-text-main: #222222;
+    --ubu-text-muted: #60666a;
     --ubu-text-light: #94a3b8;
     --ubu-bg-main: #fcfbf9;
     --ubu-bg-surface: #ffffff;
-    --ubu-bg-alt: #f6f5f1;
+    --ubu-bg-alt: #f8f5f0;
     --ubu-border: #e6e4dc;
-    --ubu-border-focus: #1b3b2b;
+    --ubu-border-focus: #00758f;
 
     /* Feedback Colors */
     --ubu-success: #15803d;
