@@ -1,0 +1,345 @@
+/* Reusable Buttons */
+.btn-ubu-primary {
+    background-color: var(--ubu-primary);
+    border-color: var(--ubu-primary);
+    color: #ffffff;
+    font-weight: 600;
+    padding: 0.65rem 1.4rem;
+    border-radius: var(--radius-md);
+    transition: all var(--transition-normal);
+}
+.btn-ubu-primary:hover,
+.btn-ubu-primary:focus {
+    background-color: var(--ubu-primary-hover);
+    border-color: var(--ubu-primary-hover);
+    color: #ffffff;
+    box-shadow: 0 4px 12px rgba(27, 59, 43, 0.25);
+}
+
+.btn-ubu-accent {
+    background-color: var(--ubu-accent);
+    border-color: var(--ubu-accent);
+    color: #ffffff;
+    font-weight: 600;
+    padding: 0.65rem 1.4rem;
+    border-radius: var(--radius-md);
+    transition: all var(--transition-normal);
+}
+.btn-ubu-accent:hover {
+    background-color: var(--ubu-accent-hover);
+    border-color: var(--ubu-accent-hover);
+    color: #ffffff;
+}
+
+.btn-ubu-outline {
+    background-color: transparent;
+    border: 1.5px solid var(--ubu-primary);
+    color: var(--ubu-primary);
+    font-weight: 600;
+    padding: 0.65rem 1.4rem;
+    border-radius: var(--radius-md);
+    transition: all var(--transition-normal);
+}
+.btn-ubu-outline:hover {
+    background-color: var(--ubu-primary);
+    color: #ffffff;
+}
+
+.btn-buruj {
+    background-color: var(--buruj-primary);
+    border-color: var(--buruj-primary);
+    color: #ffffff;
+    font-weight: 600;
+    border-radius: var(--radius-md);
+}
+.btn-buruj:hover {
+    background-color: #081a24;
+    color: #ffffff;
+}
+
+/* Badges */
+.badge-syariah {
+    background-color: #0f2c3d;
+    color: #d4af37;
+    font-weight: 600;
+    font-size: 0.75rem;
+    padding: 0.35rem 0.65rem;
+    border-radius: var(--radius-sm);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+}
+
+.badge-luxury {
+    background-color: var(--ubu-primary);
+    color: #ffffff;
+    font-weight: 600;
+    font-size: 0.75rem;
+    padding: 0.35rem 0.65rem;
+    border-radius: var(--radius-sm);
+}
+
+.badge-featured {
+    background-color: var(--ubu-accent);
+    color: #ffffff;
+    font-weight: 700;
+    font-size: 0.75rem;
+    padding: 0.35rem 0.65rem;
+    border-radius: var(--radius-sm);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* Property Cards */
+.property-card {
+    background: #ffffff;
+    border: 1px solid var(--ubu-border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    transition: transform var(--transition-normal), box-shadow var(--transition-normal);
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+.property-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-hover);
+    border-color: #d8d4c7;
+}
+
+.property-card-img-wrapper {
+    position: relative;
+    overflow: hidden;
+    aspect-ratio: 16 / 10;
+}
+.property-card-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+}
+.property-card:hover .property-card-img {
+    transform: scale(1.04);
+}
+
+.property-card-badges {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    z-index: 2;
+}
+
+.property-card-brand-badge {
+    position: absolute;
+    bottom: 12px;
+    left: 12px;
+    background: rgba(18, 24, 21, 0.75);
+    backdrop-filter: blur(4px);
+    color: #ffffff;
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 0.25rem 0.6rem;
+    border-radius: var(--radius-full);
+}
+
+.property-card-body {
+    padding: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.property-card-title {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--ubu-dark);
+    margin-bottom: 0.35rem;
+    line-height: 1.35;
+}
+.property-card-title a {
+    color: inherit;
+    text-decoration: none;
+}
+.property-card-title a:hover {
+    color: var(--ubu-primary);
+}
+
+.property-card-location {
+    color: var(--ubu-text-muted);
+    font-size: 0.875rem;
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+    margin-bottom: 0.75rem;
+}
+
+.property-card-specs {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    font-size: 0.825rem;
+    color: var(--ubu-text-muted);
+    padding-bottom: 0.85rem;
+    margin-bottom: 0.85rem;
+    border-bottom: 1px dashed var(--ubu-border);
+}
+.property-card-specs span {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+.property-card-footer {
+    margin-top: auto;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+}
+
+.property-card-price-label {
+    font-size: 0.75rem;
+    color: var(--ubu-text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+.property-card-price-value {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--ubu-primary);
+}
+.property-card-price-sub {
+    font-size: 0.75rem;
+    color: var(--ubu-text-muted);
+}
+
+/* Brand Cards */
+.brand-card {
+    background: #ffffff;
+    border: 1px solid var(--ubu-border);
+    border-radius: var(--radius-lg);
+    padding: 1.75rem;
+    transition: all var(--transition-normal);
+    position: relative;
+    overflow: hidden;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+.brand-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-hover);
+}
+.brand-card-accent-bar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+}
+
+/* Booking Search Widget (Bobobox-inspired simplicity & hierarchy) */
+.booking-search-widget {
+    background: #ffffff;
+    border-radius: var(--radius-xl);
+    box-shadow: 0 12px 32px rgba(18, 24, 21, 0.12);
+    padding: 1.5rem;
+    border: 1px solid rgba(230, 228, 220, 0.8);
+    position: relative;
+    z-index: 10;
+}
+.search-input-field {
+    background: var(--ubu-bg-alt);
+    border: 1px solid var(--ubu-border);
+    border-radius: var(--radius-md);
+    padding: 0.65rem 0.85rem;
+    transition: all var(--transition-fast);
+}
+.search-input-field:focus-within {
+    border-color: var(--ubu-primary);
+    background: #ffffff;
+    box-shadow: 0 0 0 3px rgba(27, 59, 43, 0.1);
+}
+.search-input-label {
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--ubu-text-muted);
+    margin-bottom: 0.2rem;
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+}
+.search-input-control {
+    border: none;
+    background: transparent;
+    width: 100%;
+    font-weight: 600;
+    color: var(--ubu-dark);
+    font-size: 0.95rem;
+    padding: 0;
+    outline: none;
+}
+
+/* Promo Card (Traveloka-inspired clarity) */
+.promo-card {
+    background: #ffffff;
+    border: 1px solid var(--ubu-border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    transition: all var(--transition-normal);
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+.promo-card:hover {
+    box-shadow: var(--shadow-hover);
+    transform: translateY(-3px);
+}
+.promo-card-banner {
+    position: relative;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+}
+.promo-card-banner img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.promo-code-badge {
+    background: #fdf8ee;
+    border: 1.5px dashed var(--ubu-accent);
+    color: #8c6a23;
+    font-family: monospace;
+    font-weight: 700;
+    font-size: 0.875rem;
+    padding: 0.35rem 0.75rem;
+    border-radius: var(--radius-sm);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+}
+
+/* Review Card */
+.review-card {
+    background: #ffffff;
+    border: 1px solid var(--ubu-border);
+    border-radius: var(--radius-lg);
+    padding: 1.5rem;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    transition: all var(--transition-normal);
+}
+.review-card:hover {
+    box-shadow: var(--shadow-md);
+    border-color: #d4cfc2;
+}
+.star-rating {
+    color: #eab308;
+    display: inline-flex;
+    gap: 2px;
+}
