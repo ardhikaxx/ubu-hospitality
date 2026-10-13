@@ -14,16 +14,22 @@
 
 <div class="booking-search-widget">
     <form action="{{ route('stay.index') }}" method="GET" id="searchWidgetForm">
-        <!-- Quick Filter Pills -->
+        <!-- Quick Filter Pills (Bobobox-inspired Product Selector) -->
         <div class="d-flex flex-wrap gap-2 mb-3">
-            <button type="button" class="btn btn-sm {{ empty(request('syariah')) && empty(request('private_pool')) ? 'btn-dark' : 'btn-outline-secondary' }} rounded-pill px-3 search-filter-pill" data-filter="all">
-                Semua Properti
+            <button type="button" class="btn btn-sm {{ empty(request('brand')) && empty(request('syariah')) && empty(request('private_pool')) ? 'btn-dark' : 'btn-outline-secondary' }} rounded-pill px-3 search-filter-pill" data-filter="all">
+                Semua Akomodasi
+            </button>
+            <button type="button" class="btn btn-sm {{ request('brand') === 'ubu-villa' ? 'btn-dark' : 'btn-outline-secondary' }} rounded-pill px-3 search-filter-pill" data-brand="ubu-villa">
+                <i class="bi bi-building text-success me-1"></i> Ubu Villa
+            </button>
+            <button type="button" class="btn btn-sm {{ request('brand') === 'buruj-villa' || request('syariah') ? 'btn-dark' : 'btn-outline-secondary' }} rounded-pill px-3 search-filter-pill" data-brand="buruj-villa">
+                <i class="bi bi-shield-check text-warning me-1"></i> Buruj Villa (Syariah)
+            </button>
+            <button type="button" class="btn btn-sm {{ request('brand') === 'ubu-glamping' ? 'btn-dark' : 'btn-outline-secondary' }} rounded-pill px-3 search-filter-pill" data-brand="ubu-glamping">
+                <i class="bi bi-tree text-info me-1"></i> Ubu Glamping
             </button>
             <button type="button" class="btn btn-sm {{ request('private_pool') ? 'btn-dark' : 'btn-outline-secondary' }} rounded-pill px-3 search-filter-pill" data-filter="pool">
                 <i class="bi bi-water text-primary me-1"></i> Private Pool
-            </button>
-            <button type="button" class="btn btn-sm {{ request('syariah') ? 'btn-dark' : 'btn-outline-secondary' }} rounded-pill px-3 search-filter-pill" data-filter="syariah">
-                <i class="bi bi-shield-check text-warning me-1"></i> Syariah Stay
             </button>
             <input type="hidden" name="private_pool" id="filterPrivatePool" value="{{ request('private_pool') }}">
             <input type="hidden" name="syariah" id="filterSyariah" value="{{ request('syariah') }}">
@@ -53,7 +59,7 @@
                     <label class="search-input-label">
                         <i class="bi bi-building text-muted"></i> Brand
                     </label>
-                    <select name="brand" class="search-input-control">
+                    <select name="brand" class="search-input-control" id="widgetBrandSelect">
                         <option value="">Semua Brand</option>
                         @foreach($brands as $b)
                             <option value="{{ $b->slug }}" {{ $selectedBrand == $b->slug ? 'selected' : '' }}>
@@ -334,12 +340,14 @@
 
         updateGuestUI();
 
-        // --- 3. Filter Pills toggle ---
+        // --- 3. Filter Pills toggle (Bobobox product selector behavior) ---
         document.querySelectorAll('.search-filter-pill').forEach(btn => {
             btn.addEventListener('click', function () {
                 const filter = this.dataset.filter;
+                const brandSlug = this.dataset.brand;
                 const poolInput = document.getElementById('filterPrivatePool');
                 const syariahInput = document.getElementById('filterSyariah');
+                const brandSelect = document.getElementById('widgetBrandSelect');
 
                 document.querySelectorAll('.search-filter-pill').forEach(b => {
                     b.classList.remove('btn-dark');
@@ -348,13 +356,20 @@
                 this.classList.remove('btn-outline-secondary');
                 this.classList.add('btn-dark');
 
-                if (filter === 'pool') {
+                if (brandSlug) {
+                    if (brandSelect) brandSelect.value = brandSlug;
+                    if (brandSlug === 'buruj-villa') {
+                        syariahInput.value = '1';
+                    } else {
+                        syariahInput.value = '';
+                    }
+                    poolInput.value = '';
+                } else if (filter === 'pool') {
                     poolInput.value = '1';
                     syariahInput.value = '';
-                } else if (filter === 'syariah') {
-                    syariahInput.value = '1';
-                    poolInput.value = '';
                 } else {
+                    // 'all'
+                    if (brandSelect) brandSelect.value = '';
                     poolInput.value = '';
                     syariahInput.value = '';
                 }
