@@ -29,9 +29,9 @@
             <input type="hidden" name="syariah" id="filterSyariah" value="{{ request('syariah') }}">
         </div>
 
-        <div class="row g-2 align-items-center">
+        <div class="booking-search-row align-items-stretch">
             <!-- 1. Destination / Brand -->
-            <div class="col-lg-3 col-md-6">
+            <div class="search-col-destination">
                 <div class="search-input-field">
                     <label class="search-input-label">
                         <i class="bi bi-geo-alt-fill text-muted"></i> Destinasi / Area
@@ -48,7 +48,7 @@
             </div>
 
             <!-- 2. Brand Selection -->
-            <div class="col-lg-2 col-md-6">
+            <div class="search-col-brand">
                 <div class="search-input-field">
                     <label class="search-input-label">
                         <i class="bi bi-building text-muted"></i> Brand
@@ -65,7 +65,7 @@
             </div>
 
             <!-- 3. Check-in Date -->
-            <div class="col-lg-2 col-md-6 col-6">
+            <div class="search-col-checkin">
                 <div class="search-input-field">
                     <label class="search-input-label">
                         <i class="bi bi-calendar-event text-muted"></i> Check-in
@@ -81,7 +81,7 @@
             </div>
 
             <!-- 4. Check-out Date -->
-            <div class="col-lg-2 col-md-6 col-6">
+            <div class="search-col-checkout">
                 <div class="search-input-field">
                     <label class="search-input-label">
                         <i class="bi bi-calendar-check text-muted"></i> Check-out
@@ -97,15 +97,15 @@
             </div>
 
             <!-- 5. Guests -->
-            <div class="col-lg-1 col-md-6 col-6">
+            <div class="search-col-guests">
                 <div class="search-input-field">
                     <label class="search-input-label">
                         <i class="bi bi-people text-muted"></i> Tamu
                     </label>
-                    <select name="guests" class="search-input-control">
+                    <select name="guests" class="search-input-control" title="Pilih jumlah tamu">
                         @for($i = 1; $i <= 16; $i++)
                             <option value="{{ $i }}" {{ $defaultGuests == $i ? 'selected' : '' }}>
-                                {{ $i }} {{ $i > 1 ? 'Org' : 'Org' }}
+                                {{ $i }} Tamu
                             </option>
                         @endfor
                     </select>
@@ -113,8 +113,8 @@
             </div>
 
             <!-- 6. Search Submit Button -->
-            <div class="col-lg-2 col-md-6 col-6">
-                <button type="submit" class="btn btn-ubu-primary w-100 py-3 d-flex align-items-center justify-content-center gap-2">
+            <div class="search-col-submit d-flex">
+                <button type="submit" class="btn btn-ubu-primary w-100 h-100 py-3 d-flex align-items-center justify-content-center gap-2 text-nowrap" style="min-height: 56px; min-width: 130px;">
                     <i class="bi bi-search"></i>
                     <span>Cari Villa</span>
                 </button>

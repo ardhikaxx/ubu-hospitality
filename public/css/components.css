@@ -250,12 +250,56 @@
     position: relative;
     z-index: 10;
 }
+
+.booking-search-row {
+    display: grid;
+    gap: 0.65rem;
+    align-items: stretch;
+}
+
+/* Desktop layout (>= 992px): all 6 controls fit comfortably in 1 row */
+@media (min-width: 992px) {
+    .booking-search-row {
+        grid-template-columns: 2.3fr 1.6fr 1.35fr 1.35fr 1.25fr auto;
+    }
+}
+
+/* Tablet layout (576px - 991.98px): 2 rows of inputs + full-width button */
+@media (min-width: 576px) and (max-width: 991.98px) {
+    .booking-search-row {
+        grid-template-columns: repeat(6, 1fr);
+    }
+    .search-col-destination { grid-column: span 3; }
+    .search-col-brand       { grid-column: span 3; }
+    .search-col-checkin     { grid-column: span 2; }
+    .search-col-checkout    { grid-column: span 2; }
+    .search-col-guests      { grid-column: span 2; }
+    .search-col-submit      { grid-column: span 6; }
+}
+
+/* Mobile layout (< 576px): stacked clean touch targets */
+@media (max-width: 575.98px) {
+    .booking-search-row {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .search-col-destination { grid-column: span 2; }
+    .search-col-brand       { grid-column: span 2; }
+    .search-col-checkin     { grid-column: span 1; }
+    .search-col-checkout    { grid-column: span 1; }
+    .search-col-guests      { grid-column: span 2; }
+    .search-col-submit      { grid-column: span 2; }
+}
+
 .search-input-field {
     background: var(--ubu-bg-alt);
     border: 1px solid var(--ubu-border);
     border-radius: var(--radius-md);
     padding: 0.65rem 0.85rem;
     transition: all var(--transition-fast);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100%;
 }
 .search-input-field:focus-within {
     border-color: var(--ubu-primary);
@@ -272,6 +316,7 @@
     display: flex;
     align-items: center;
     gap: 0.3rem;
+    white-space: nowrap;
 }
 .search-input-control {
     border: none;
@@ -282,6 +327,25 @@
     font-size: 0.95rem;
     padding: 0;
     outline: none;
+}
+select.search-input-control {
+    cursor: pointer;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 16 16'%3E%3Cpath fill='none' stroke='%23444444' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' d='M3 6l5 5 5-5'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 0.2rem center;
+    background-size: 11px 11px;
+    padding-right: 1.35rem;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+select.search-input-control option {
+    background: #ffffff;
+    color: var(--ubu-dark);
+    font-weight: 500;
+    padding: 0.5rem;
 }
 
 /* Promo Card (Traveloka-inspired clarity) */
