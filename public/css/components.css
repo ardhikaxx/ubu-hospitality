@@ -586,3 +586,82 @@ span.flatpickr-weekday {
     display: inline-flex;
     gap: 2px;
 }
+
+/* ==========================================================================
+   Custom Brand Pagination (Numbers Only)
+   ========================================================================== */
+.ubu-pagination,
+.pagination {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+    padding-left: 0;
+    list-style: none;
+    margin: 1.5rem 0 0.5rem;
+}
+
+.ubu-pagination .page-item,
+.pagination .page-item {
+    margin: 0;
+    list-style: none;
+}
+
+.ubu-pagination .page-link,
+.pagination .page-link {
+    min-width: 42px;
+    height: 42px;
+    padding: 0 0.85rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-body, 'Plus Jakarta Sans', sans-serif);
+    font-size: 0.925rem;
+    font-weight: 600;
+    color: var(--ubu-primary, #1b3b2b);
+    background-color: #ffffff;
+    border: 1.5px solid var(--ubu-border, #e6e4dc);
+    border-radius: 10px !important;
+    text-decoration: none;
+    transition: all var(--transition-fast, 0.15s ease);
+    box-shadow: 0 1px 3px rgba(18, 24, 21, 0.04);
+}
+
+.ubu-pagination .page-link:hover,
+.pagination .page-link:hover {
+    color: var(--ubu-primary-hover, #142d21);
+    background-color: var(--ubu-primary-light, #e8efe9);
+    border-color: var(--ubu-accent, #c5a059);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 10px rgba(197, 160, 89, 0.2);
+    z-index: 2;
+}
+
+.ubu-pagination .page-item.active .page-link,
+.pagination .page-item.active .page-link {
+    color: #ffffff !important;
+    background-color: var(--ubu-primary, #1b3b2b) !important;
+    border-color: var(--ubu-primary, #1b3b2b) !important;
+    font-weight: 700;
+    box-shadow: 0 4px 12px rgba(27, 59, 43, 0.28);
+    transform: none;
+    z-index: 3;
+}
+
+.ubu-pagination .page-item.disabled .page-link,
+.pagination .page-item.disabled .page-link {
+    color: var(--ubu-text-light, #94a3b8);
+    background-color: transparent;
+    border-color: transparent;
+    box-shadow: none;
+    cursor: default;
+    pointer-events: none;
+}
+
+.ubu-pagination .ubu-page-ellipsis,
+.pagination .ubu-page-ellipsis {
+    font-size: 1.15rem;
+    letter-spacing: 2px;
+}
+

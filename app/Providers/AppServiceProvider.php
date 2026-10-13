@@ -8,6 +8,7 @@ use App\Services\Payment\DokuPaymentService;
 use App\Services\Payment\PaymentServiceInterface;
 use App\Services\Sentec\SentecReservationService;
 use App\Services\Sentec\SentecServiceInterface;
+use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
@@ -29,6 +30,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        // Global Numbers-Only Pagination Matching Brand Theme
+        Paginator::defaultView('vendor.pagination.numbers-only');
+        Paginator::defaultSimpleView('vendor.pagination.numbers-only');
+
         // View Composer for sharing active brands and navigation in public layout
         View::composer('layouts.public', function ($view) {
             if (Schema::hasTable('brands')) {
