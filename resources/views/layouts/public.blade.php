@@ -202,16 +202,16 @@
                 <!-- Col 1: Brand Info -->
                 <div class="col-lg-4 col-md-6">
                     <h4 class="text-white font-serif mb-2">UBU HOSPITALITY</h4>
-                    <p class="text-muted small mb-3">
+                    <p class="text-white small mb-3">
                         Perusahaan manajemen aset hospitality terkemuka di Indonesia yang mengelola portfolio villa privat, akomodasi syariah terpercaya, dan glamping berkarakter.
                     </p>
-                    <p class="small text-muted mb-1">
-                        <i class="bi bi-geo-alt text-warning me-1"></i> {{ \App\Models\Setting::get('contact_address', 'Jl. Gito Gati No. 88, Sleman, Yogyakarta') }}
+                    <p class="small text-white mb-1">
+                        <i class="bi bi-geo-alt text-warning me-1"></i> {{ \App\Models\Setting::get('contact_address', 'Jl. Gito Gati No. 88, Sariharjo, Ngaglik, Sleman, D.I. Yogyakarta 55581') }}
                     </p>
-                    <p class="small text-muted mb-1">
+                    <p class="small text-white mb-1">
                         <i class="bi bi-telephone text-warning me-1"></i> {{ \App\Models\Setting::get('contact_phone', '(0274) 889977') }}
                     </p>
-                    <p class="small text-muted mb-3">
+                    <p class="small text-white mb-3">
                         <i class="bi bi-envelope text-warning me-1"></i> {{ \App\Models\Setting::get('contact_email', 'reservation@ubuhospitality.com') }}
                     </p>
                     <div class="d-flex gap-2">
