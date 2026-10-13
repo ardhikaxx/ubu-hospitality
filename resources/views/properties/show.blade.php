@@ -278,11 +278,11 @@
                         <div class="row g-2 mb-3">
                             <div class="col-6">
                                 <label class="form-label small fw-bold text-muted mb-1">Check-in</label>
-                                <input type="date" name="check_in" id="detailCheckIn" class="form-control form-control-sm" value="{{ $checkIn }}" min="{{ date('Y-m-d') }}" required>
+                                <input type="text" name="check_in" id="detailCheckIn" class="form-control form-control-sm" value="{{ $checkIn }}" readonly required>
                             </div>
                             <div class="col-6">
                                 <label class="form-label small fw-bold text-muted mb-1">Check-out</label>
-                                <input type="date" name="check_out" id="detailCheckOut" class="form-control form-control-sm" value="{{ $checkOut }}" min="{{ date('Y-m-d', strtotime('+1 day')) }}" required>
+                                <input type="text" name="check_out" id="detailCheckOut" class="form-control form-control-sm" value="{{ $checkOut }}" readonly required>
                             </div>
                         </div>
 
@@ -357,3 +357,57 @@
     @endif
 </div>
 @endsection
+
+@push('scripts')
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        if (typeof flatpickr !== 'undefined') {
+            const IndonesianLocale = {
+                weekdays: {
+                    shorthand: ["Min", "Sen", "Sel", "Rab", "Kam", "Jum", "Sab"],
+                    longhand: ["Minggu", "Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu"],
+                },
+                months: {
+                    shorthand: ["Jan", "Feb", "Mar", "Apr", "Mei", "Jun", "Jul", "Agu", "Sep", "Okt", "Nov", "Des"],
+                    longhand: [
+                        "Januari", "Februari", "Maret", "April", "Mei", "Juni",
+                        "Juli", "Agustus", "September", "Oktober", "November", "Desember",
+                    ],
+                },
+                firstDayOfWeek: 1,
+            };
+
+            let detailCheckOutPicker;
+            const detailCheckInPicker = flatpickr("#detailCheckIn", {
+                locale: IndonesianLocale,
+                dateFormat: "Y-m-d",
+                altInput: true,
+                altFormat: "j M Y",
+                minDate: "today",
+                defaultDate: "{{ $checkIn }}",
+                disableMobile: true,
+                onChange: function (selectedDates) {
+                    if (selectedDates.length > 0 && detailCheckOutPicker) {
+                        const nextDay = new Date(selectedDates[0]);
+                        nextDay.setDate(nextDay.getDate() + 1);
+                        detailCheckOutPicker.set('minDate', nextDay);
+                        if (!detailCheckOutPicker.selectedDates.length || detailCheckOutPicker.selectedDates[0] <= selectedDates[0]) {
+                            detailCheckOutPicker.setDate(nextDay, true);
+                        }
+                    }
+                }
+            });
+
+            detailCheckOutPicker = flatpickr("#detailCheckOut", {
+                locale: IndonesianLocale,
+                dateFormat: "Y-m-d",
+                altInput: true,
+                altFormat: "j M Y",
+                minDate: "{{ date('Y-m-d', strtotime($checkIn . ' +1 day')) }}",
+                defaultDate: "{{ $checkOut }}",
+                disableMobile: true,
+            });
+        }
+    });
+</script>
+@endpush

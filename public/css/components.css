@@ -348,6 +348,185 @@ select.search-input-control option {
     padding: 0.5rem;
 }
 
+/* Guest Counter Popover (Airbnb & Traveloka Style) */
+.guest-picker-trigger {
+    cursor: pointer;
+    user-select: none;
+}
+.guest-picker-trigger::after {
+    display: none !important;
+}
+.guest-popover-card {
+    background: #ffffff !important;
+    border-radius: var(--radius-xl) !important;
+    box-shadow: 0 16px 40px rgba(18, 24, 21, 0.16) !important;
+    border: 1px solid var(--ubu-border) !important;
+    animation: guestPopoverFade 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+@keyframes guestPopoverFade {
+    from {
+        opacity: 0;
+        transform: translateY(-8px) scale(0.98);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+.guest-stepper-btn {
+    width: 32px;
+    height: 32px;
+    padding: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50% !important;
+    border: 1.5px solid var(--ubu-border) !important;
+    color: var(--ubu-primary) !important;
+    background: #ffffff !important;
+    font-size: 1.1rem;
+    font-weight: 700;
+    line-height: 1;
+    transition: all var(--transition-fast);
+}
+.guest-stepper-btn:hover:not(:disabled) {
+    border-color: var(--ubu-primary) !important;
+    background: var(--ubu-primary) !important;
+    color: #ffffff !important;
+    box-shadow: 0 2px 8px rgba(27, 59, 43, 0.25);
+}
+.guest-stepper-btn:disabled {
+    border-color: #e2e8f0 !important;
+    color: #cbd5e1 !important;
+    background: #f8fafc !important;
+    cursor: not-allowed;
+    opacity: 0.55;
+}
+
+/* ==========================================================================
+   Flatpickr Luxury Theme (Ubu Hospitality Forest Green & Warm Sand)
+   ========================================================================== */
+.flatpickr-input {
+    cursor: pointer !important;
+    background-color: transparent !important;
+}
+.flatpickr-calendar {
+    font-family: var(--font-body);
+    background: #ffffff;
+    border-radius: var(--radius-xl);
+    box-shadow: 0 20px 48px rgba(18, 24, 21, 0.18);
+    border: 1px solid var(--ubu-border);
+    padding: 0.75rem 0.5rem;
+    width: 310px;
+    margin-top: 6px;
+    animation: guestPopoverFade 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.flatpickr-calendar.arrowTop:before,
+.flatpickr-calendar.arrowTop:after {
+    border-bottom-color: #ffffff;
+}
+.flatpickr-calendar.arrowBottom:before,
+.flatpickr-calendar.arrowBottom:after {
+    border-top-color: #ffffff;
+}
+.flatpickr-months {
+    padding: 0.25rem 0.5rem 0.5rem;
+    align-items: center;
+    border-bottom: 1px solid var(--ubu-border);
+    margin-bottom: 0.5rem;
+}
+.flatpickr-months .flatpickr-month {
+    color: var(--ubu-primary);
+    fill: var(--ubu-primary);
+    height: 36px;
+}
+.flatpickr-current-month {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--ubu-primary);
+    padding: 0;
+}
+.flatpickr-current-month .cur-month {
+    font-weight: 700;
+    color: var(--ubu-dark);
+}
+.flatpickr-current-month input.cur-year {
+    font-weight: 700;
+    color: var(--ubu-primary);
+}
+.flatpickr-months .flatpickr-prev-month,
+.flatpickr-months .flatpickr-next-month {
+    padding: 6px 8px;
+    border-radius: var(--radius-full);
+    transition: all var(--transition-fast);
+    top: 6px;
+}
+.flatpickr-months .flatpickr-prev-month svg,
+.flatpickr-months .flatpickr-next-month svg {
+    fill: var(--ubu-primary);
+    width: 13px;
+    height: 13px;
+}
+.flatpickr-months .flatpickr-prev-month:hover,
+.flatpickr-months .flatpickr-next-month:hover {
+    background: var(--ubu-primary-light);
+}
+.flatpickr-weekdays {
+    margin-bottom: 0.35rem;
+}
+span.flatpickr-weekday {
+    color: var(--ubu-text-muted);
+    font-weight: 700;
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+.flatpickr-day {
+    border-radius: var(--radius-md);
+    color: var(--ubu-text-main);
+    font-weight: 600;
+    font-size: 0.88rem;
+    height: 38px;
+    line-height: 38px;
+    margin: 1px 0;
+    transition: all var(--transition-fast);
+}
+.flatpickr-day:hover {
+    background: var(--ubu-primary-light);
+    color: var(--ubu-primary);
+    border-color: transparent;
+}
+.flatpickr-day.today {
+    border-color: var(--ubu-accent);
+    color: var(--ubu-primary);
+    font-weight: 700;
+}
+.flatpickr-day.today:hover {
+    background: var(--ubu-accent-light);
+    border-color: var(--ubu-accent);
+    color: var(--ubu-accent-hover);
+}
+.flatpickr-day.selected,
+.flatpickr-day.startRange,
+.flatpickr-day.endRange {
+    background: var(--ubu-primary) !important;
+    border-color: var(--ubu-primary) !important;
+    color: #ffffff !important;
+    font-weight: 700;
+    box-shadow: 0 4px 10px rgba(27, 59, 43, 0.3);
+}
+.flatpickr-day.inRange {
+    background: var(--ubu-primary-light) !important;
+    border-color: var(--ubu-primary-light) !important;
+    color: var(--ubu-primary) !important;
+    box-shadow: none !important;
+}
+.flatpickr-day.flatpickr-disabled,
+.flatpickr-day.flatpickr-disabled:hover {
+    color: #cbd5e1;
+    cursor: not-allowed;
+}
+
 /* Promo Card (Traveloka-inspired clarity) */
 .promo-card {
     background: #ffffff;

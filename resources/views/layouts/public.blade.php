@@ -43,6 +43,9 @@
     <!-- Bootstrap Icons via CDN -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
+    <!-- Flatpickr Date Picker CSS via CDN -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+
     <!-- Custom Structured CSS -->
     <link rel="stylesheet" href="{{ asset('css/variables.css') }}">
     <link rel="stylesheet" href="{{ asset('css/components.css') }}">
@@ -289,6 +292,9 @@
 
     <!-- Bootstrap 5 Bundle JS via CDN -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Flatpickr Date Picker JS via CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 
     <!-- SweetAlert2 via CDN -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
