@@ -192,6 +192,61 @@ class PagesAndNavigationsSeeder extends Seeder
             ]
         );
 
+        Page::firstOrCreate(
+            ['slug' => 'celebrity'],
+            [
+                'title_id' => 'Celebrity Staycation',
+                'title_en' => 'Celebrity Staycation',
+                'subtitle_id' => 'Review dan Liburan Figur Publik Ternama di Ubu Hospitality',
+                'subtitle_en' => 'Public Figures and Celebrities Stay Reviews',
+                'status' => 'published',
+            ]
+        );
+
+        Page::firstOrCreate(
+            ['slug' => 'packages'],
+            [
+                'title_id' => 'Paket Wisata & Layanan Tambahan',
+                'title_en' => 'Special Packages & Add-on Services',
+                'subtitle_id' => 'Floating Breakfast, In-Villa BBQ, dan Merapi Tour',
+                'subtitle_en' => 'Floating Breakfast, In-Villa BBQ, and Merapi Tour',
+                'status' => 'published',
+            ]
+        );
+
+        Page::firstOrCreate(
+            ['slug' => 'life-at-ubu'],
+            [
+                'title_id' => 'Life at Ubu',
+                'title_en' => 'Life at Ubu',
+                'subtitle_id' => 'Budaya dan Standar Pelayanan Hospitality Kami',
+                'subtitle_en' => 'Our Culture and Hospitality Service Standards',
+                'status' => 'published',
+            ]
+        );
+
+        Page::firstOrCreate(
+            ['slug' => 'csr'],
+            [
+                'title_id' => 'CSR & Keberlanjutan Komunitas',
+                'title_en' => 'CSR & Community Sustainability',
+                'subtitle_id' => 'Pemberdayaan Warga Lokal dan Lingkungan Hijau',
+                'subtitle_en' => 'Local Empowerment and Green Environment',
+                'status' => 'published',
+            ]
+        );
+
+        Page::firstOrCreate(
+            ['slug' => 'career'],
+            [
+                'title_id' => 'Karir & Peluang Bergabung',
+                'title_en' => 'Careers & Opportunities',
+                'subtitle_id' => 'Tumbuh Bersama Tim Hospitality Terkemuka',
+                'subtitle_en' => 'Grow with the Leading Hospitality Team',
+                'status' => 'published',
+            ]
+        );
+
         // 2. Navigation Menus & Items
         // Menu 1: Header Main
         $headerMenu = NavigationMenu::firstOrCreate(
@@ -231,7 +286,12 @@ class PagesAndNavigationsSeeder extends Seeder
         $footerCompany = NavigationMenu::firstOrCreate(['location' => 'footer_company'], ['name' => 'Footer Company']);
         NavigationItem::firstOrCreate(['menu_id' => $footerCompany->id, 'url' => '/about'], ['title_id' => 'Tentang Ubu', 'title_en' => 'About Ubu', 'sort_order' => 1]);
         NavigationItem::firstOrCreate(['menu_id' => $footerCompany->id, 'url' => '/brand/ubu-villa'], ['title_id' => 'Brand Kami', 'title_en' => 'Our Brands', 'sort_order' => 2]);
-        NavigationItem::firstOrCreate(['menu_id' => $footerCompany->id, 'url' => '/blog'], ['title_id' => 'Inspirasi & Blog', 'title_en' => 'Blog & Inspiration', 'sort_order' => 3]);
+        NavigationItem::firstOrCreate(['menu_id' => $footerCompany->id, 'url' => '/life-at-ubu'], ['title_id' => 'Life at Ubu', 'title_en' => 'Life at Ubu', 'sort_order' => 3]);
+        NavigationItem::firstOrCreate(['menu_id' => $footerCompany->id, 'url' => '/celebrity'], ['title_id' => 'Celebrity Stay', 'title_en' => 'Celebrity Stay', 'sort_order' => 4]);
+        NavigationItem::firstOrCreate(['menu_id' => $footerCompany->id, 'url' => '/packages'], ['title_id' => 'Paket Spesial', 'title_en' => 'Special Packages', 'sort_order' => 5]);
+        NavigationItem::firstOrCreate(['menu_id' => $footerCompany->id, 'url' => '/csr'], ['title_id' => 'CSR & Lingkungan', 'title_en' => 'CSR & Community', 'sort_order' => 6]);
+        NavigationItem::firstOrCreate(['menu_id' => $footerCompany->id, 'url' => '/career'], ['title_id' => 'Karir', 'title_en' => 'Careers', 'sort_order' => 7]);
+        NavigationItem::firstOrCreate(['menu_id' => $footerCompany->id, 'url' => '/blog'], ['title_id' => 'Inspirasi & Blog', 'title_en' => 'Blog & Inspiration', 'sort_order' => 8]);
 
         // Menu 4: Footer Partnership
         $footerPartnership = NavigationMenu::firstOrCreate(['location' => 'footer_partnership'], ['name' => 'Footer Partnership']);
