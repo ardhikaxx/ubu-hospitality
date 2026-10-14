@@ -18,11 +18,11 @@
     <!-- Category pills & Search -->
     <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3 mb-4 pb-3 border-bottom">
         <div class="d-flex flex-wrap gap-2">
-            <a href="{{ route('blog.index') }}" class="btn btn-sm {{ empty($categorySlug) ? 'btn-dark' : 'btn-outline-secondary' }} rounded-pill px-3">
+            <a href="{{ route('blog.index') }}" class="filter-pill {{ empty($categorySlug) ? 'active' : '' }}">
                 Semua Kategori
             </a>
             @foreach($categories as $cat)
-                <a href="{{ route('blog.index', ['category' => $cat->slug]) }}" class="btn btn-sm {{ $categorySlug === $cat->slug ? 'btn-dark' : 'btn-outline-secondary' }} rounded-pill px-3">
+                <a href="{{ route('blog.index', ['category' => $cat->slug]) }}" class="filter-pill {{ $categorySlug === $cat->slug ? 'active' : '' }}">
                     {{ $cat->name }} ({{ $cat->posts_count }})
                 </a>
             @endforeach
@@ -50,7 +50,7 @@
                 <div class="col-md-6 col-lg-4">
                     <div class="card border-0 rounded-4 overflow-hidden shadow-sm h-100 property-card bg-white">
                         <div style="aspect-ratio: 16 / 10; overflow: hidden;">
-                            <img src="{{ $post->featured_image }}" alt="{{ $post->title }}" class="w-100 h-100 object-fit-cover" loading="lazy">
+                            <x-fallback-image :src="$post->featured_image" alt="{{ $post->title }}" class="w-100 h-100 object-fit-cover" loading="lazy" />
                         </div>
                         <div class="p-3 d-flex flex-column flex-grow-1">
                             <div class="d-flex align-items-center gap-2 small text-muted mb-2">
