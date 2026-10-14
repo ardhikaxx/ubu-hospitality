@@ -38,7 +38,7 @@
                 @forelse($brands as $b)
                     <tr>
                         <td style="width: 80px;">
-                            <img src="{{ $b->cover_image_path ?: 'https://via.placeholder.com/100x60' }}" alt="{{ $b->name }}" class="rounded-2" style="width: 70px; height: 45px; object-fit: cover;">
+                            <img src="{{ image_or_default($b->cover_image_path) }}" alt="{{ $b->name }}" class="rounded-2" style="width: 70px; height: 45px; object-fit: cover;" onerror="this.onerror=null;this.src='{{ asset('images/default-img.png') }}';">
                         </td>
                         <td>
                             <div class="fw-bold text-dark">{{ $b->name }}</div>
