@@ -74,7 +74,7 @@
                 <h4 class="font-serif fw-bold text-dark mb-2">Kirim Pesan atau Pertanyaan</h4>
                 <p class="small text-muted mb-4">Isi formulir di bawah ini dan kami akan membalas via email atau WhatsApp.</p>
 
-                <form onsubmit="event.preventDefault(); Swal.fire({icon: 'success', title: 'Pesan Terkirim', text: 'Terima kasih telah menghubungi kami. Tim kami akan segera merespons.', confirmButtonColor: '#1b3b2b'}); this.reset();">
+                <form onsubmit="event.preventDefault(); Swal.fire({icon: 'success', title: 'Pesan Terkirim', text: 'Terima kasih telah menghubungi kami. Tim kami akan segera merespons.', confirmButtonColor: '#0085a2'}); this.reset();">
                     <div class="row g-3 mb-3">
                         <div class="col-md-6">
                             <label class="form-label">Nama Anda</label>
