@@ -25,7 +25,7 @@
     <div class="row g-5">
         <div class="col-lg-8">
             <div class="rounded-4 overflow-hidden mb-4 shadow-sm" style="aspect-ratio: 16 / 9;">
-                <img src="{{ $post->featured_image }}" alt="{{ $post->title }}" class="w-100 h-100 object-fit-cover">
+                <x-fallback-image :src="$post->featured_image" alt="{{ $post->title }}" class="w-100 h-100 object-fit-cover" />
             </div>
 
             <article class="bg-white p-4 p-md-5 rounded-4 border shadow-sm article-content" style="font-size: 1.05rem; line-height: 1.85;">
