@@ -73,3 +73,19 @@ test('admin can view and update their profile', function () {
     expect($this->admin->name)->toBe('Chief Executive Admin');
     expect($this->admin->phone)->toBe('081234567890');
 });
+
+test('admin layout renders responsive proportional sidebar and mobile drawer components', function () {
+    $response = $this->actingAs($this->admin)->get(route('admin.dashboard'));
+    $response->assertStatus(200);
+
+    // Verify sidebar container and mobile backdrop
+    $response->assertSee('admin-sidebar-backdrop');
+    $response->assertSee('id="adminSidebar"', false);
+    $response->assertSee('id="closeSidebarBtn"', false);
+    $response->assertSee('id="sidebarToggleBtn"', false);
+
+    // Verify proportional branding & user footer
+    $response->assertSee('sidebar-footer');
+    $response->assertSee($this->admin->name);
+    $response->assertSee('CMS PLATFORM');
+});
