@@ -1,7 +1,7 @@
 /* Reusable Buttons */
 .btn-ubu-primary {
-    background-color: var(--ubu-primary);
-    border-color: var(--ubu-primary);
+    background-color: var(--ubu-primary, #0085a2);
+    border: none;
     color: #ffffff;
     font-weight: 600;
     padding: 0.65rem 1.4rem;
@@ -10,15 +10,15 @@
 }
 .btn-ubu-primary:hover,
 .btn-ubu-primary:focus {
-    background-color: var(--ubu-primary-hover);
-    border-color: var(--ubu-primary-hover);
+    background-color: var(--ubu-primary-hover, #00728c);
     color: #ffffff;
-    box-shadow: 0 4px 12px rgba(27, 59, 43, 0.25);
+    box-shadow: 0 4px 14px rgba(0, 133, 162, 0.25);
+    transform: translateY(-1px);
 }
 
 .btn-ubu-accent {
-    background-color: var(--ubu-accent);
-    border-color: var(--ubu-accent);
+    background-color: var(--ubu-accent, #0085a2);
+    border-color: var(--ubu-accent, #0085a2);
     color: #ffffff;
     font-weight: 600;
     padding: 0.65rem 1.4rem;
@@ -26,9 +26,93 @@
     transition: all var(--transition-normal);
 }
 .btn-ubu-accent:hover {
-    background-color: var(--ubu-accent-hover);
-    border-color: var(--ubu-accent-hover);
+    background-color: var(--ubu-accent-hover, #00728c);
+    border-color: var(--ubu-accent-hover, #00728c);
     color: #ffffff;
+    box-shadow: 0 4px 12px rgba(0, 133, 162, 0.25);
+}
+
+.btn-ubu-gold {
+    background-color: #f1c40f !important;
+    border: 2px solid #f1c40f !important;
+    color: #121815 !important;
+    font-weight: 700 !important;
+    padding: 0.65rem 1.4rem;
+    border-radius: var(--radius-md);
+    transition: all var(--transition-normal);
+}
+.btn-ubu-gold:hover,
+.btn-ubu-gold:focus {
+    background-color: #e2b607 !important;
+    border-color: #e2b607 !important;
+    color: #121815 !important;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25) !important;
+    transform: translateY(-2px);
+}
+
+.btn-ubu-white {
+    background-color: #ffffff !important;
+    border: 2px solid #ffffff !important;
+    color: var(--ubu-primary, #0085a2) !important;
+    font-weight: 700 !important;
+    padding: 0.65rem 1.4rem;
+    border-radius: var(--radius-md);
+    transition: all var(--transition-normal);
+}
+.btn-ubu-white:hover,
+.btn-ubu-white:focus {
+    background-color: #f8f9fa !important;
+    border-color: #f8f9fa !important;
+    color: var(--ubu-primary-hover, #00728c) !important;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25) !important;
+    transform: translateY(-2px);
+}
+
+/* Category Filter Pills (Centered & Uniform) */
+.filter-pill {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 0.45rem !important;
+    padding: 0.5rem 1.25rem !important;
+    font-size: 0.875rem !important;
+    font-weight: 500 !important;
+    line-height: 1.2 !important;
+    border-radius: 50rem !important;
+    border: 1.5px solid var(--ubu-border, #d1d5db) !important;
+    color: var(--ubu-dark, #222222) !important;
+    background-color: #ffffff !important;
+    text-decoration: none !important;
+    transition: all var(--transition-normal);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+    vertical-align: middle;
+}
+
+.filter-pill i {
+    font-size: 1rem !important;
+    line-height: 1 !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    margin: 0 !important;
+}
+
+.filter-pill:hover {
+    border-color: var(--ubu-primary, #0085a2) !important;
+    color: var(--ubu-primary, #0085a2) !important;
+    background-color: var(--ubu-accent-light, #e6f6f9) !important;
+}
+
+.filter-pill.active {
+    background-color: var(--ubu-primary, #0085a2) !important;
+    border-color: var(--ubu-primary, #0085a2) !important;
+    color: #ffffff !important;
+    font-weight: 600 !important;
+    box-shadow: 0 4px 12px rgba(0, 133, 162, 0.25) !important;
+}
+
+.filter-pill.active i {
+    color: #ffffff !important;
 }
 
 .btn-ubu-outline {
@@ -553,9 +637,9 @@ span.flatpickr-weekday {
     object-fit: cover;
 }
 .promo-code-badge {
-    background: #fdf8ee;
-    border: 1.5px dashed var(--ubu-accent);
-    color: #8c6a23;
+    background: var(--ubu-primary-light, #e8f5f8);
+    border: 1.5px dashed var(--ubu-primary, #0085a2);
+    color: var(--ubu-primary-hover, #006771);
     font-family: monospace;
     font-weight: 700;
     font-size: 0.875rem;
@@ -579,10 +663,10 @@ span.flatpickr-weekday {
 }
 .review-card:hover {
     box-shadow: var(--shadow-md);
-    border-color: #d4cfc2;
+    border-color: var(--ubu-primary, #0085a2);
 }
 .star-rating {
-    color: #eab308;
+    color: var(--ubu-gold, #f1c40f);
     display: inline-flex;
     gap: 2px;
 }
@@ -619,32 +703,32 @@ span.flatpickr-weekday {
     font-family: var(--font-body, 'Plus Jakarta Sans', sans-serif);
     font-size: 0.925rem;
     font-weight: 600;
-    color: var(--ubu-primary, #1b3b2b);
+    color: var(--ubu-primary, #0085a2);
     background-color: #ffffff;
     border: 1.5px solid var(--ubu-border, #e6e4dc);
     border-radius: 10px !important;
     text-decoration: none;
     transition: all var(--transition-fast, 0.15s ease);
-    box-shadow: 0 1px 3px rgba(18, 24, 21, 0.04);
+    box-shadow: 0 1px 3px rgba(11, 26, 32, 0.04);
 }
 
 .ubu-pagination .page-link:hover,
 .pagination .page-link:hover {
-    color: var(--ubu-primary-hover, #142d21);
-    background-color: var(--ubu-primary-light, #e8efe9);
-    border-color: var(--ubu-accent, #c5a059);
+    color: var(--ubu-primary-hover, #006771);
+    background-color: var(--ubu-primary-light, #e8f5f8);
+    border-color: var(--ubu-primary, #0085a2);
     transform: translateY(-1px);
-    box-shadow: 0 4px 10px rgba(197, 160, 89, 0.2);
+    box-shadow: 0 4px 10px rgba(0, 133, 162, 0.2);
     z-index: 2;
 }
 
 .ubu-pagination .page-item.active .page-link,
 .pagination .page-item.active .page-link {
     color: #ffffff !important;
-    background-color: var(--ubu-primary, #1b3b2b) !important;
-    border-color: var(--ubu-primary, #1b3b2b) !important;
+    background-color: var(--ubu-primary, #0085a2) !important;
+    border-color: var(--ubu-primary, #0085a2) !important;
     font-weight: 700;
-    box-shadow: 0 4px 12px rgba(27, 59, 43, 0.28);
+    box-shadow: 0 4px 12px rgba(0, 133, 162, 0.2);
     transform: none;
     z-index: 3;
 }
