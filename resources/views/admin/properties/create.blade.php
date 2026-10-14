@@ -14,7 +14,7 @@
 </div>
 
 <div class="admin-card p-4">
-    <form action="{{ route('admin.properties.store') }}" method="POST">
+    <form action="{{ route('admin.properties.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
 
         <h5 class="fw-bold text-dark border-bottom pb-2 mb-3">1. Informasi Pokok & Brand</h5>
@@ -157,13 +157,23 @@
 
         <h5 class="fw-bold text-dark border-bottom pb-2 mb-3">4. Media Gambar & Foto</h5>
         <div class="row g-3 mb-4">
-            <div class="col-12">
-                <label class="form-label">URL Foto Utama (Featured Image)</label>
-                <input type="text" name="featured_image" class="form-control" value="{{ old('featured_image', 'https://images.unsplash.com/photo-1580587771525-78b9dba3b914?auto=format&fit=crop&w=1200&q=80') }}">
+            <div class="col-md-6">
+                <label class="form-label fw-bold">Upload Foto Utama (Featured Image)</label>
+                <input type="file" name="featured_image_file" class="form-control" accept="image/*">
+                <small class="text-muted d-block mt-1">Format: JPG, PNG, WEBP. Maks 5MB. Otomatis dikompres & disimpan tanpa storage:link.</small>
             </div>
-            <div class="col-12">
-                <label class="form-label">URL Galeri Tambahan (1 baris per URL)</label>
-                <textarea name="gallery_images_raw" rows="3" class="form-control">{{ old('gallery_images_raw') }}</textarea>
+            <div class="col-md-6">
+                <label class="form-label">Atau URL Foto Utama (Alternatif)</label>
+                <input type="text" name="featured_image" class="form-control" value="{{ old('featured_image') }}" placeholder="https://...">
+            </div>
+            <div class="col-md-6">
+                <label class="form-label fw-bold">Upload Foto Galeri (Bisa Pilih Banyak File Sekaligus)</label>
+                <input type="file" name="gallery_files[]" class="form-control" multiple accept="image/*">
+                <small class="text-muted d-block mt-1">Pilih beberapa foto sekaligus untuk menambah galeri properti.</small>
+            </div>
+            <div class="col-md-6">
+                <label class="form-label">Atau URL Galeri Tambahan (1 baris per URL)</label>
+                <textarea name="gallery_images_raw" rows="3" class="form-control" placeholder="https://...&#10;https://...">{{ old('gallery_images_raw') }}</textarea>
             </div>
         </div>
 
