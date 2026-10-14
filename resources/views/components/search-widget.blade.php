@@ -38,11 +38,11 @@
         <div class="booking-search-row align-items-stretch">
             <!-- 1. Destination / Brand -->
             <div class="search-col-destination">
-                <div class="search-input-field">
+                <div class="search-input-field bg-white">
                     <label class="search-input-label">
                         <i class="bi bi-geo-alt-fill text-muted"></i> Destinasi / Area
                     </label>
-                    <select name="city" class="search-input-control">
+                    <select name="city" class="search-input-control bg-white">
                         <option value="">Semua Area di Yogyakarta</option>
                         @foreach($destinations as $d)
                             <option value="{{ $d->name }}" {{ $selectedDestination == $d->name ? 'selected' : '' }}>
@@ -55,11 +55,11 @@
 
             <!-- 2. Brand Selection -->
             <div class="search-col-brand">
-                <div class="search-input-field">
+                <div class="search-input-field bg-white">
                     <label class="search-input-label">
                         <i class="bi bi-building text-muted"></i> Brand
                     </label>
-                    <select name="brand" class="search-input-control" id="widgetBrandSelect">
+                    <select name="brand" class="search-input-control bg-white" id="widgetBrandSelect">
                         <option value="">Semua Brand</option>
                         @foreach($brands as $b)
                             <option value="{{ $b->slug }}" {{ $selectedBrand == $b->slug ? 'selected' : '' }}>
@@ -72,14 +72,14 @@
 
             <!-- 3. Check-in Date -->
             <div class="search-col-checkin">
-                <div class="search-input-field date-picker-field" id="checkInTrigger" style="cursor: pointer;">
+                <div class="search-input-field date-picker-field bg-white" id="checkInTrigger" style="cursor: pointer;">
                     <label class="search-input-label">
                         <i class="bi bi-calendar-event text-muted"></i> Check-in
                     </label>
                     <input type="text"
                            name="check_in"
                            id="widgetCheckIn"
-                           class="search-input-control flatpickr-input"
+                           class="search-input-control flatpickr-input bg-white"
                            value="{{ $defaultCheckIn }}"
                            placeholder="Pilih Tanggal"
                            readonly
@@ -89,14 +89,14 @@
 
             <!-- 4. Check-out Date -->
             <div class="search-col-checkout">
-                <div class="search-input-field date-picker-field" id="checkOutTrigger" style="cursor: pointer;">
+                <div class="search-input-field date-picker-field bg-white" id="checkOutTrigger" style="cursor: pointer;">
                     <label class="search-input-label">
                         <i class="bi bi-calendar-check text-muted"></i> Check-out
                     </label>
                     <input type="text"
                            name="check_out"
                            id="widgetCheckOut"
-                           class="search-input-control flatpickr-input"
+                           class="search-input-control flatpickr-input bg-white"
                            value="{{ $defaultCheckOut }}"
                            placeholder="Pilih Tanggal"
                            readonly
@@ -106,7 +106,7 @@
 
             <!-- 5. Guests Counter Popover (Airbnb / Traveloka Style) -->
             <div class="search-col-guests dropdown">
-                <div class="search-input-field dropdown-toggle guest-picker-trigger"
+                <div class="search-input-field dropdown-toggle guest-picker-trigger bg-white"
                      id="guestsDropdownTrigger"
                      data-bs-toggle="dropdown"
                      data-bs-auto-close="outside"
