@@ -14,7 +14,7 @@
 </div>
 
 <div class="admin-card p-4">
-    <form action="{{ route('admin.brands.update', $brand->id) }}" method="POST">
+    <form action="{{ route('admin.brands.update', $brand->id) }}" method="POST" enctype="multipart/form-data">
         @csrf
         @method('PUT')
 
@@ -56,7 +56,33 @@
                 <textarea name="character_highlights_raw" rows="3" class="form-control">{{ old('character_highlights_raw', implode("\n", $brand->character_highlights ?? [])) }}</textarea>
             </div>
             <div class="col-md-6">
-                <label class="form-label">URL Foto Cover / Banner</label>
+                <label class="form-label fw-bold">Ganti Logo Brand (Upload)</label>
+                @if($brand->logo_path)
+                    <div class="mb-2 d-flex align-items-center gap-2 p-2 border rounded bg-light">
+                        <img src="{{ image_or_default($brand->logo_path) }}" alt="Logo" class="rounded object-fit-contain bg-dark p-1" style="width: 50px; height: 50px;">
+                        <span class="small text-muted text-truncate" style="max-width: 250px;">{{ basename($brand->logo_path) }}</span>
+                    </div>
+                @endif
+                <input type="file" name="logo_file" class="form-control" accept="image/*">
+                <small class="text-muted d-block mt-1">Upload file logo baru (PNG/SVG/WEBP) untuk mengganti.</small>
+            </div>
+            <div class="col-md-6">
+                <label class="form-label">Atau URL Logo Brand</label>
+                <input type="text" name="logo_path" class="form-control" value="{{ old('logo_path', $brand->logo_path) }}" placeholder="https://...">
+            </div>
+            <div class="col-md-6">
+                <label class="form-label fw-bold">Ganti Foto Cover / Banner (Upload)</label>
+                @if($brand->cover_image_path)
+                    <div class="mb-2 d-flex align-items-center gap-2 p-2 border rounded bg-light">
+                        <img src="{{ image_or_default($brand->cover_image_path) }}" alt="Cover" class="rounded object-fit-cover" style="width: 80px; height: 50px;">
+                        <span class="small text-muted text-truncate" style="max-width: 250px;">{{ basename($brand->cover_image_path) }}</span>
+                    </div>
+                @endif
+                <input type="file" name="cover_image_file" class="form-control" accept="image/*">
+                <small class="text-muted d-block mt-1">Upload foto banner baru untuk mengganti.</small>
+            </div>
+            <div class="col-md-6">
+                <label class="form-label">Atau URL Foto Cover / Banner</label>
                 <input type="text" name="cover_image_path" class="form-control" value="{{ old('cover_image_path', $brand->cover_image_path) }}">
             </div>
             <div class="col-md-3">
