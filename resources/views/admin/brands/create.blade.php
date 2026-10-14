@@ -14,7 +14,7 @@
 </div>
 
 <div class="admin-card p-4">
-    <form action="{{ route('admin.brands.store') }}" method="POST">
+    <form action="{{ route('admin.brands.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
 
         <div class="row g-3 mb-4">
@@ -54,16 +54,30 @@
                 <textarea name="character_highlights_raw" rows="3" class="form-control" placeholder="Kolam Renang Privat Eksklusif&#10;Layanan Floating Breakfast&#10;Kehangatan Layanan 24 Jam">{{ old('character_highlights_raw') }}</textarea>
             </div>
             <div class="col-md-6">
-                <label class="form-label">URL Foto Cover / Banner</label>
-                <input type="text" name="cover_image_path" class="form-control" value="{{ old('cover_image_path') }}" placeholder="https://images.unsplash.com/...">
+                <label class="form-label fw-bold">Upload Logo Brand</label>
+                <input type="file" name="logo_file" class="form-control" accept="image/*">
+                <small class="text-muted d-block mt-1">Format: PNG, SVG, JPG, WEBP. Maks 2MB. Disimpan otomatis tanpa storage:link.</small>
+            </div>
+            <div class="col-md-6">
+                <label class="form-label">Atau URL Logo Brand</label>
+                <input type="text" name="logo_path" class="form-control" value="{{ old('logo_path') }}" placeholder="https://...">
+            </div>
+            <div class="col-md-6">
+                <label class="form-label fw-bold">Upload Foto Cover / Banner</label>
+                <input type="file" name="cover_image_file" class="form-control" accept="image/*">
+                <small class="text-muted d-block mt-1">Format: JPG, PNG, WEBP. Maks 5MB.</small>
+            </div>
+            <div class="col-md-6">
+                <label class="form-label">Atau URL Foto Cover / Banner</label>
+                <input type="text" name="cover_image_path" class="form-control" value="{{ old('cover_image_path') }}" placeholder="https://...">
             </div>
             <div class="col-md-3">
                 <label class="form-label">Warna Aksen Utama (HEX)</label>
-                <input type="color" name="accent_color" class="form-control form-control-color w-100" value="{{ old('accent_color', '#1b3b2b') }}">
+                <input type="color" name="accent_color" class="form-control form-control-color w-100" value="{{ old('accent_color', '#0085a2') }}">
             </div>
             <div class="col-md-3">
                 <label class="form-label">Warna Sekunder (HEX)</label>
-                <input type="color" name="secondary_color" class="form-control form-control-color w-100" value="{{ old('secondary_color', '#c5a059') }}">
+                <input type="color" name="secondary_color" class="form-control form-control-color w-100" value="{{ old('secondary_color', '#f1c40f') }}">
             </div>
             <div class="col-md-6">
                 <label class="form-label">Urutan Tampil (Sort Order)</label>
