@@ -47,11 +47,21 @@
                 <a href="{{ route('home') }}" class="btn btn-ubu-primary w-100 py-2">
                     Kembali ke Beranda
                 </a>
-            @else
+                <div class="mb-4 text-center">
+                    <small class="text-muted d-block mb-2">Metode Pembayaran Resmi Yang Didukung:</small>
+                    <div class="d-flex flex-wrap justify-content-center gap-2">
+                        @foreach(['bca', 'bni', 'mandiri', 'bri', 'mastercard', 'link', 'indomaret', 'alfamart'] as $brand)
+                            <div class="bg-light border rounded px-2 py-1 d-flex align-items-center justify-content-center" style="height: 30px; width: 48px;">
+                                <img src="{{ asset('images/payments/' . $brand . '.webp') }}" alt="{{ $brand }}" style="max-height: 18px; max-width: 40px; object-fit: contain;">
+                            </div>
+                        @endforeach
+                    </div>
+                </div>
+
                 <form action="{{ route('payment.mock-complete', $transaction->invoice_number) }}" method="POST">
                     @csrf
-                    <button type="submit" class="btn btn-success w-100 py-3 fw-bold mb-3 shadow">
-                        <i class="bi bi-credit-card-2-front-fill me-1"></i> Simulasi Bayar Berhasil (Mock Pay)
+                    <button type="submit" class="btn btn-ubu-primary w-100 py-3 fw-bold mb-3 shadow">
+                        <i class="bi bi-credit-card-2-front-fill me-1"></i> Selesaikan Pembayaran Simulasi
                     </button>
                 </form>
 
