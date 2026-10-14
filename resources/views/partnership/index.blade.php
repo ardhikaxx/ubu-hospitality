@@ -2,7 +2,7 @@
 
 @section('content')
 <!-- Partnership Hero -->
-<section class="py-5" style="background: linear-gradient(135deg, #16201b 0%, #1b3b2b 100%); color: #ffffff;">
+<section class="py-5 text-white" style="background-color: var(--ubu-primary, #0085a2);">
     <div class="container py-4">
         <div class="row align-items-center g-5">
             <div class="col-lg-7">
@@ -10,14 +10,14 @@
                 <h1 class="font-serif display-4 fw-bold text-white mb-3">
                     Maksimalkan Potensi Properti Anda Bersama Ubu Hospitality
                 </h1>
-                <p class="fs-5 text-white-50 mb-4" style="line-height: 1.7;">
+                <p class="fs-5 text-white mb-4" style="line-height: 1.7; opacity: 0.95;">
                     Kami adalah mitra terpercaya pemilik aset dalam mengelola villa privat, akomodasi syariah, dan glamping di Yogyakarta. Solusi menyeluruh dari operasional harian, pemasaran digital, hingga pemeliharaan aset berstandar tinggi.
                 </p>
                 <div class="d-flex flex-wrap gap-3">
-                    <a href="#submitSection" class="btn btn-ubu-accent btn-lg px-4 py-3 fw-bold shadow">
+                    <a href="#submit" class="btn btn-ubu-gold btn-lg px-4 py-3 fw-bold shadow-lg rounded-pill">
                         <i class="bi bi-pencil-square me-2"></i> Ajukan Properti Anda
                     </a>
-                    <a href="https://wa.me/6281234567890?text=Halo%20Tim%20Kemitraan%20Ubu%20Hospitality%2C%20saya%20tertarik%20berdiskusi%20mengenai%20kerja%20sama%20properti" target="_blank" class="btn btn-outline-light btn-lg px-4 py-3">
+                    <a href="{{ \App\Models\Setting::get('contact_whatsapp_url', 'https://api.whatsapp.com/send?phone=+6282320003297') }}" target="_blank" class="btn btn-outline-light btn-lg px-4 py-3 rounded-pill">
                         <i class="bi bi-whatsapp me-2"></i> Konsultasi Tim Partnership
                     </a>
                 </div>
@@ -60,7 +60,7 @@
 </section>
 
 <!-- Cooperation Models Section -->
-<section class="section-padding bg-white" id="models">
+<section class="section-padding bg-white" id="partnership_models">
     <div class="container">
         <x-section-header
             pill="Model Kerja Sama"
@@ -125,7 +125,7 @@
 </section>
 
 <!-- Proposal Submission Form Section (RedDoorz-inspired lead capture) -->
-<section class="section-padding" style="background-color: var(--ubu-bg-alt);" id="submitSection">
+<section class="section-padding" style="background-color: var(--ubu-bg-alt);" id="submit">
     <div class="container">
         <div class="max-w-3xl mx-auto" style="max-width: 860px;">
             <div class="text-center mb-4">
