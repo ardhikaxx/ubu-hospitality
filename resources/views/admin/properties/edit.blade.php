@@ -19,7 +19,7 @@
 </div>
 
 <div class="admin-card p-4">
-    <form action="{{ route('admin.properties.update', $property->id) }}" method="POST">
+    <form action="{{ route('admin.properties.update', $property->id) }}" method="POST" enctype="multipart/form-data">
         @csrf
         @method('PUT')
 
@@ -165,12 +165,28 @@
 
         <h5 class="fw-bold text-dark border-bottom pb-2 mb-3">4. Media Gambar & Foto</h5>
         <div class="row g-3 mb-4">
-            <div class="col-12">
-                <label class="form-label">URL Foto Utama (Featured Image)</label>
+            <div class="col-md-6">
+                <label class="form-label fw-bold">Ganti Foto Utama (Upload Baru)</label>
+                @if($property->featured_image)
+                    <div class="mb-2 d-flex align-items-center gap-2 p-2 border rounded bg-light">
+                        <img src="{{ image_or_default($property->featured_image) }}" alt="Preview" class="rounded object-fit-cover" style="width: 80px; height: 50px;">
+                        <span class="small text-muted text-truncate" style="max-width: 250px;">{{ basename($property->featured_image) }}</span>
+                    </div>
+                @endif
+                <input type="file" name="featured_image_file" class="form-control" accept="image/*">
+                <small class="text-muted d-block mt-1">Upload gambar baru untuk mengganti foto utama secara otomatis.</small>
+            </div>
+            <div class="col-md-6">
+                <label class="form-label">Atau URL Foto Utama (Alternatif)</label>
                 <input type="text" name="featured_image" class="form-control" value="{{ old('featured_image', $property->featured_image) }}">
             </div>
-            <div class="col-12">
-                <label class="form-label">URL Galeri Tambahan (1 baris per URL)</label>
+            <div class="col-md-6">
+                <label class="form-label fw-bold">Tambah Foto Galeri Baru (Upload Sekaligus)</label>
+                <input type="file" name="gallery_files[]" class="form-control" multiple accept="image/*">
+                <small class="text-muted d-block mt-1">Pilih beberapa foto sekaligus untuk menambah ke galeri.</small>
+            </div>
+            <div class="col-md-6">
+                <label class="form-label">Daftar URL Galeri Tambahan (1 baris per URL)</label>
                 <textarea name="gallery_images_raw" rows="3" class="form-control">{{ old('gallery_images_raw', implode("\n", is_array($property->gallery_images) ? $property->gallery_images : [])) }}</textarea>
             </div>
         </div>
