@@ -7,6 +7,7 @@ use App\Models\AuditLog;
 use App\Models\Brand;
 use App\Models\Experience;
 use App\Models\Property;
+use App\Services\ImageUploadService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -29,7 +30,7 @@ class ExperienceController extends Controller
         return view('admin.experiences.create', compact('brands', 'properties'));
     }
 
-    public function store(Request $request): RedirectResponse
+    public function store(Request $request, ImageUploadService $imageService): RedirectResponse
     {
         $validated = $request->validate([
             'title_id' => 'required|string|max:150',
@@ -43,6 +44,7 @@ class ExperienceController extends Controller
             'price_display' => 'nullable|string|max:100',
             'location' => 'nullable|string|max:150',
             'featured_image' => 'nullable|string',
+            'featured_image_file' => 'nullable|file|mimes:jpeg,png,jpg,webp|max:5120',
             'brand_id' => 'nullable|exists:brands,id',
             'property_id' => 'nullable|exists:properties,id',
             'sort_order' => 'nullable|integer',
@@ -51,6 +53,15 @@ class ExperienceController extends Controller
 
         $validated['slug'] = ! empty($validated['slug']) ? Str::slug($validated['slug']) : Str::slug($validated['title_id']);
         $validated['sort_order'] = (int) ($validated['sort_order'] ?? 0);
+
+        if ($request->hasFile('featured_image_file')) {
+            $validated['featured_image'] = $imageService->processAndStore(
+                $request->file('featured_image_file'),
+                'experiences',
+                'exp_featured'
+            );
+        }
+        unset($validated['featured_image_file']);
 
         $experience = Experience::create($validated);
 
@@ -73,7 +84,7 @@ class ExperienceController extends Controller
         return view('admin.experiences.edit', compact('experience', 'brands', 'properties'));
     }
 
-    public function update(Request $request, Experience $experience): RedirectResponse
+    public function update(Request $request, Experience $experience, ImageUploadService $imageService): RedirectResponse
     {
         $validated = $request->validate([
             'title_id' => 'required|string|max:150',
@@ -87,6 +98,7 @@ class ExperienceController extends Controller
             'price_display' => 'nullable|string|max:100',
             'location' => 'nullable|string|max:150',
             'featured_image' => 'nullable|string',
+            'featured_image_file' => 'nullable|file|mimes:jpeg,png,jpg,webp|max:5120',
             'brand_id' => 'nullable|exists:brands,id',
             'property_id' => 'nullable|exists:properties,id',
             'sort_order' => 'nullable|integer',
@@ -95,6 +107,16 @@ class ExperienceController extends Controller
 
         $validated['slug'] = Str::slug($validated['slug']);
         $validated['sort_order'] = (int) ($validated['sort_order'] ?? 0);
+
+        if ($request->hasFile('featured_image_file')) {
+            $validated['featured_image'] = $imageService->replace(
+                $request->file('featured_image_file'),
+                $experience->featured_image,
+                'experiences',
+                'exp_featured'
+            );
+        }
+        unset($validated['featured_image_file']);
 
         $experience->update($validated);
 
@@ -109,9 +131,14 @@ class ExperienceController extends Controller
         return redirect()->route('admin.experiences.index')->with('success', 'Experience berhasil diperbarui.');
     }
 
-    public function destroy(Experience $experience): RedirectResponse
+    public function destroy(Experience $experience, ImageUploadService $imageService): RedirectResponse
     {
         $title = $experience->title_id;
+
+        if (! empty($experience->featured_image)) {
+            $imageService->delete($experience->featured_image);
+        }
+
         $experience->delete();
 
         AuditLog::create([
