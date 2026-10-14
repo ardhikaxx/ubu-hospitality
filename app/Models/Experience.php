@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Support\ImageFallback;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -81,5 +82,10 @@ class Experience extends Model
         $locale = app()->getLocale();
 
         return $locale === 'en' && ! empty($this->content_en) ? $this->content_en : $this->content_id;
+    }
+
+    public function getFeaturedImageUrlAttribute(): string
+    {
+        return ImageFallback::url($this->featured_image);
     }
 }
