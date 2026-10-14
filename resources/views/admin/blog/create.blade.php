@@ -14,7 +14,7 @@
 </div>
 
 <div class="admin-card p-4">
-    <form action="{{ route('admin.blog.store') }}" method="POST">
+    <form action="{{ route('admin.blog.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
 
         <div class="row g-3 mb-4">
@@ -41,9 +41,14 @@
                 <input type="text" name="slug" class="form-control" value="{{ old('slug') }}" placeholder="Otomatis dari judul jika dikosongkan">
             </div>
 
-            <div class="col-12">
-                <label class="form-label">URL Foto Cover / Featured Image</label>
-                <input type="text" name="featured_image" class="form-control" value="{{ old('featured_image', 'https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&w=1200&q=80') }}">
+            <div class="col-md-6">
+                <label class="form-label fw-bold">Upload Foto Cover / Featured Image</label>
+                <input type="file" name="featured_image_file" class="form-control" accept="image/*">
+                <small class="text-muted d-block mt-1">Format: JPG, PNG, WEBP. Maks 5MB. Disimpan otomatis tanpa storage:link.</small>
+            </div>
+            <div class="col-md-6">
+                <label class="form-label">Atau URL Foto Cover (Alternatif)</label>
+                <input type="text" name="featured_image" class="form-control" value="{{ old('featured_image') }}" placeholder="https://...">
             </div>
 
             <div class="col-md-6">
