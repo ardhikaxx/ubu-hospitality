@@ -52,7 +52,7 @@
     <div class="row g-2 mb-5">
         <div class="col-lg-8">
             <div class="rounded-4 overflow-hidden position-relative" style="height: 440px;">
-                <img src="{{ $property->featured_image }}" alt="{{ $property->name }}" class="w-100 h-100 object-fit-cover">
+                <x-fallback-image :src="$property->featured_image" alt="{{ $property->name }}" class="w-100 h-100 object-fit-cover" />
             </div>
         </div>
         <div class="col-lg-4 d-none d-lg-block">
@@ -64,7 +64,7 @@
                 @foreach($subImages as $img)
                     <div class="col-12" style="height: 216px;">
                         <div class="rounded-4 overflow-hidden h-100">
-                            <img src="{{ $img }}" alt="{{ $property->name }}" class="w-100 h-100 object-fit-cover">
+                            <x-fallback-image :src="$img" alt="{{ $property->name }}" class="w-100 h-100 object-fit-cover" />
                         </div>
                     </div>
                 @endforeach
