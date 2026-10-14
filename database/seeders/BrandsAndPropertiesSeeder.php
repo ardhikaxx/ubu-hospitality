@@ -15,49 +15,49 @@ class BrandsAndPropertiesSeeder extends Seeder
     public function run(): void
     {
         // 1. Destinations
-        $destSleman = Destination::firstOrCreate(
+        $destSleman = Destination::updateOrCreate(
             ['slug' => 'sleman'],
             [
                 'name' => 'Sleman',
-                'description_id' => 'Kawasan sejuk dengan suasana asri di utara Yogyakarta, dekat dengan pusat kuliner dan pemandangan Gunung Merapi.',
-                'description_en' => 'Scenic and serene area north of Yogyakarta, close to culinary hubs and stunning Mount Merapi vistas.',
-                'image_path' => 'https://images.unsplash.com/photo-1544644181-1484b3fdfc62?auto=format&fit=crop&w=800&q=80',
+                'description_id' => 'Kawasan sejuk dengan suasana asri di utara Yogyakarta, dekat dengan pusat kuliner dan Candi Prambanan.',
+                'description_en' => 'Scenic and serene area north of Yogyakarta, close to culinary hubs and Prambanan Temple.',
+                'image_path' => 'images/destinations/sleman.jpg',
                 'sort_order' => 1,
                 'is_active' => true,
             ]
         );
 
-        $destKaliurang = Destination::firstOrCreate(
+        $destKaliurang = Destination::updateOrCreate(
             ['slug' => 'kaliurang'],
             [
                 'name' => 'Kaliurang',
                 'description_id' => 'Puncak pegunungan berhawa dingin di lereng Merapi, surga liburan keluarga dan retret ketenangan.',
                 'description_en' => 'Cool mountain retreat on the slopes of Merapi, a haven for family vacations and peaceful relaxation.',
-                'image_path' => 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80',
+                'image_path' => 'images/destinations/kaliurang.jpg',
                 'sort_order' => 2,
                 'is_active' => true,
             ]
         );
 
-        $destBantul = Destination::firstOrCreate(
+        $destBantul = Destination::updateOrCreate(
             ['slug' => 'bantul'],
             [
                 'name' => 'Bantul',
-                'description_id' => 'Kawasan budaya, seni kerajinan, dan hamparan alam pedesaan yang menyejukkan hati.',
-                'description_en' => 'Cultural and craft heritage heartland surrounded by lush countryside tranquility.',
-                'image_path' => 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=800&q=80',
+                'description_id' => 'Kawasan budaya, seni kerajinan Kasongan, dan pesona pantai selatan Parangtritis yang menyejukkan hati.',
+                'description_en' => 'Cultural and craft heritage heartland surrounded by lush countryside and Parangtritis coastline.',
+                'image_path' => 'images/destinations/bantul.jpg',
                 'sort_order' => 3,
                 'is_active' => true,
             ]
         );
 
-        $destJogjaKota = Destination::firstOrCreate(
+        $destJogjaKota = Destination::updateOrCreate(
             ['slug' => 'yogyakarta-kota'],
             [
                 'name' => 'Kota Yogyakarta',
-                'description_id' => 'Jantung kota bersejarah dengan kemudahan akses ke Malioboro, Keraton, dan pusat perbelanjaan.',
-                'description_en' => 'Historic city center with seamless access to Malioboro, Kraton Palace, and shopping hubs.',
-                'image_path' => 'https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?auto=format&fit=crop&w=800&q=80',
+                'description_id' => 'Jantung kota bersejarah dengan kemudahan akses ke Tugu, Malioboro, Keraton, dan pusat kuliner.',
+                'description_en' => 'Historic city center with seamless access to Tugu, Malioboro, Kraton Palace, and culinary hubs.',
+                'image_path' => 'images/destinations/kota-yogyakarta.jpg',
                 'sort_order' => 4,
                 'is_active' => true,
             ]
