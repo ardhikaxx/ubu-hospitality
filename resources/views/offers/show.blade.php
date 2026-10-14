@@ -20,7 +20,7 @@
     <div class="row g-5">
         <div class="col-lg-8">
             <div class="rounded-4 overflow-hidden mb-4 shadow-sm" style="aspect-ratio: 16 / 9;">
-                <img src="{{ $promotion->banner_image }}" alt="{{ $promotion->title }}" class="w-100 h-100 object-fit-cover">
+                <x-fallback-image :src="$promotion->banner_image" alt="{{ $promotion->title }}" class="w-100 h-100 object-fit-cover" />
             </div>
 
             <div class="card border rounded-4 p-4 shadow-sm bg-white mb-4">
