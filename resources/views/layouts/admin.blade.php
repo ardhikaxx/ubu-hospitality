@@ -26,14 +26,22 @@
 </head>
 <body class="admin-body">
     <div class="admin-wrapper">
+        <!-- Sidebar Backdrop for Mobile/Tablet -->
+        <div class="admin-sidebar-backdrop" id="adminSidebarBackdrop"></div>
+
         <!-- Sidebar -->
         <aside class="admin-sidebar" id="adminSidebar">
-            <div class="sidebar-header d-flex align-items-center gap-2">
-                <img src="{{ asset('images/branding/logo-dark.svg') }}" alt="Ubu Logo" height="36" class="bg-white p-1 rounded-2 shadow-sm">
-                <div>
-                    <div class="sidebar-brand-title">UBU HOSPITALITY</div>
-                    <div class="sidebar-brand-badge">CMS PLATFORM</div>
+            <div class="sidebar-header d-flex align-items-center justify-content-between">
+                <div class="d-flex align-items-center gap-2">
+                    <img src="{{ asset('images/branding/logo-dark.svg') }}" alt="Ubu Logo" height="34" class="bg-white p-1 rounded-2 shadow-sm">
+                    <div>
+                        <div class="sidebar-brand-title">UBU HOSPITALITY</div>
+                        <div class="sidebar-brand-badge">CMS PLATFORM</div>
+                    </div>
                 </div>
+                <button type="button" class="btn-sidebar-close d-lg-none" id="closeSidebarBtn" aria-label="Tutup Sidebar">
+                    <i class="bi bi-x-lg"></i>
+                </button>
             </div>
 
             @php
@@ -43,37 +51,37 @@
             <nav class="sidebar-nav">
                 <div class="sidebar-heading">Menu Utama</div>
                 <a href="{{ route('admin.dashboard') }}" class="sidebar-link {{ request()->routeIs('admin.dashboard') ? 'active' : '' }}">
-                    <i class="bi bi-grid-1x2-fill"></i> Dashboard
+                    <i class="bi bi-grid-1x2-fill"></i> <span>Dashboard</span>
                 </a>
 
                 <div class="sidebar-heading">Hospitality & Aset</div>
                 <a href="{{ route('admin.brands.index') }}" class="sidebar-link {{ request()->routeIs('admin.brands.*') ? 'active' : '' }}">
-                    <i class="bi bi-tags-fill"></i> Manajemen Brand
+                    <i class="bi bi-tags-fill"></i> <span>Manajemen Brand</span>
                 </a>
                 <a href="{{ route('admin.properties.index') }}" class="sidebar-link {{ request()->routeIs('admin.properties.*') ? 'active' : '' }}">
-                    <i class="bi bi-houses-fill"></i> Manajemen Properti
+                    <i class="bi bi-houses-fill"></i> <span>Manajemen Properti</span>
                 </a>
                 <a href="{{ route('admin.amenities.index') }}" class="sidebar-link {{ request()->routeIs('admin.amenities.*') ? 'active' : '' }}">
-                    <i class="bi bi-check2-circle"></i> Fasilitas (Amenities)
+                    <i class="bi bi-check2-circle"></i> <span>Fasilitas (Amenities)</span>
                 </a>
 
                 <div class="sidebar-heading">Pemasaran & Konten</div>
                 <a href="{{ route('admin.promotions.index') }}" class="sidebar-link {{ request()->routeIs('admin.promotions.*') ? 'active' : '' }}">
-                    <i class="bi bi-ticket-perforated-fill"></i> Promo & Penawaran
+                    <i class="bi bi-ticket-perforated-fill"></i> <span>Promo & Penawaran</span>
                 </a>
                 <a href="{{ route('admin.experiences.index') }}" class="sidebar-link {{ request()->routeIs('admin.experiences.*') ? 'active' : '' }}">
-                    <i class="bi bi-compass-fill"></i> Experience & Aktivitas
+                    <i class="bi bi-compass-fill"></i> <span>Experience & Aktivitas</span>
                 </a>
                 <a href="{{ route('admin.blog.index') }}" class="sidebar-link {{ request()->routeIs('admin.blog.*') ? 'active' : '' }}">
-                    <i class="bi bi-newspaper"></i> Artikel & Blog
+                    <i class="bi bi-newspaper"></i> <span>Artikel & Blog</span>
                 </a>
                 <a href="{{ route('admin.reviews.index') }}" class="sidebar-link {{ request()->routeIs('admin.reviews.*') ? 'active' : '' }}">
-                    <i class="bi bi-chat-heart-fill"></i> Ulasan Tamu (Reviews)
+                    <i class="bi bi-chat-heart-fill"></i> <span>Ulasan Tamu</span>
                 </a>
 
                 <div class="sidebar-heading">Operasional & Kemitraan</div>
                 <a href="{{ route('admin.partnerships.index') }}" class="sidebar-link {{ request()->routeIs('admin.partnerships.*') ? 'active' : '' }}">
-                    <i class="bi bi-building-up"></i> Prospek Kemitraan
+                    <i class="bi bi-building-up"></i> <span>Prospek Kemitraan</span>
                     @if($pendingLeadsCount > 0)
                         <span class="badge bg-danger rounded-pill ms-auto">{{ $pendingLeadsCount }}</span>
                     @endif
@@ -81,41 +89,57 @@
 
                 <div class="sidebar-heading">Tata Kelola Web</div>
                 <a href="{{ route('admin.pages.index') }}" class="sidebar-link {{ request()->routeIs('admin.pages.*') ? 'active' : '' }}">
-                    <i class="bi bi-file-earmark-richtext"></i> Halaman & Section
+                    <i class="bi bi-file-earmark-richtext"></i> <span>Halaman & Section</span>
                 </a>
                 <a href="{{ route('admin.navigations.index') }}" class="sidebar-link {{ request()->routeIs('admin.navigations.*') ? 'active' : '' }}">
-                    <i class="bi bi-menu-button-wide"></i> Menu Navigasi
+                    <i class="bi bi-menu-button-wide"></i> <span>Menu Navigasi</span>
                 </a>
                 <a href="{{ route('admin.media.index') }}" class="sidebar-link {{ request()->routeIs('admin.media.*') ? 'active' : '' }}">
-                    <i class="bi bi-images"></i> Media Library
+                    <i class="bi bi-images"></i> <span>Media Library</span>
                 </a>
                 <a href="{{ route('admin.seo.index') }}" class="sidebar-link {{ request()->routeIs('admin.seo.*') ? 'active' : '' }}">
-                    <i class="bi bi-signpost-split-fill"></i> SEO & 301 Redirect
+                    <i class="bi bi-signpost-split-fill"></i> <span>SEO & Redirect</span>
                 </a>
 
                 <div class="sidebar-heading">Sistem & Keamanan</div>
                 <a href="{{ route('admin.users.index') }}" class="sidebar-link {{ request()->routeIs('admin.users.*') ? 'active' : '' }}">
-                    <i class="bi bi-people-fill"></i> Pengguna & Akses
+                    <i class="bi bi-people-fill"></i> <span>Pengguna & Akses</span>
                 </a>
                 <a href="{{ route('admin.audit-logs.index') }}" class="sidebar-link {{ request()->routeIs('admin.audit-logs.*') ? 'active' : '' }}">
-                    <i class="bi bi-shield-lock-fill"></i> Audit Logs
+                    <i class="bi bi-shield-lock-fill"></i> <span>Audit Logs</span>
                 </a>
                 <a href="{{ route('admin.settings.index') }}" class="sidebar-link {{ request()->routeIs('admin.settings.*') ? 'active' : '' }}">
-                    <i class="bi bi-sliders"></i> Pengaturan Sistem
+                    <i class="bi bi-sliders"></i> <span>Pengaturan Sistem</span>
                 </a>
             </nav>
+
+            <!-- Sidebar User Profile Footer -->
+            <div class="sidebar-footer">
+                <div class="d-flex align-items-center gap-2">
+                    <div class="rounded-circle bg-ubu-primary text-white fw-bold d-flex align-items-center justify-content-center flex-shrink-0" style="width: 34px; height: 34px; font-size: 0.85rem;">
+                        {{ strtoupper(substr(auth()->user()->name ?? 'A', 0, 1)) }}
+                    </div>
+                    <div class="d-flex flex-column text-truncate" style="min-width: 0;">
+                        <span class="text-white small fw-semibold text-truncate">{{ auth()->user()->name ?? 'Administrator' }}</span>
+                        <span class="text-muted" style="font-size: 0.7rem;">{{ auth()->user()->role?->name ?? 'Admin CMS' }}</span>
+                    </div>
+                    <a href="{{ route('admin.profile') }}" class="btn-sidebar-user ms-auto" title="Pengaturan Akun">
+                        <i class="bi bi-gear"></i>
+                    </a>
+                </div>
+            </div>
         </aside>
 
         <!-- Main Wrapper -->
         <div class="admin-main">
             <!-- Topbar -->
             <header class="admin-topbar">
-                <div class="d-flex align-items-center gap-3">
-                    <button class="btn btn-sm btn-light border d-md-none" type="button" onclick="document.getElementById('adminSidebar').classList.toggle('d-none')">
-                        <i class="bi bi-list"></i>
+                <div class="d-flex align-items-center gap-2 gap-sm-3">
+                    <button class="btn btn-sm btn-light border d-lg-none" type="button" id="sidebarToggleBtn" aria-label="Toggle Sidebar">
+                        <i class="bi bi-list fs-5"></i>
                     </button>
-                    <a href="{{ url('/') }}" target="_blank" class="btn btn-sm btn-outline-success">
-                        <i class="bi bi-arrow-up-right-square me-1"></i> Buka Website Publik
+                    <a href="{{ url('/') }}" target="_blank" class="btn btn-sm btn-outline-success d-inline-flex align-items-center gap-1">
+                        <i class="bi bi-arrow-up-right-square"></i> <span class="d-none d-sm-inline">Buka Website Publik</span>
                     </a>
                 </div>
 
@@ -162,7 +186,7 @@
                 icon: 'success',
                 title: 'Berhasil!',
                 text: "{{ session('success') }}",
-                confirmButtonColor: '#1b3b2b',
+                confirmButtonColor: '#0085a2',
                 timer: 3500
             });
         @endif
@@ -192,6 +216,66 @@
                 }
             });
         }
+    </script>
+
+    <!-- Global image fallback: kosong / rusak -> default-img.png -->
+    <script>
+        window.DEFAULT_IMG = "{{ asset('images/default-img.png') }}";
+        document.addEventListener('error', function (e) {
+            var t = e.target;
+            if (t && t.tagName === 'IMG' && !t.dataset.fallbackApplied) {
+                t.dataset.fallbackApplied = '1';
+                t.src = window.DEFAULT_IMG;
+            }
+        }, true);
+        document.addEventListener('DOMContentLoaded', function () {
+            document.querySelectorAll('img').forEach(function (img) {
+                var src = (img.getAttribute('src') || '').trim();
+                if (src === '') {
+                    img.src = window.DEFAULT_IMG;
+                }
+        });
+
+        // Responsive Admin Sidebar Controller (Mobile & Desktop)
+        document.addEventListener('DOMContentLoaded', function () {
+            const sidebar = document.getElementById('adminSidebar');
+            const backdrop = document.getElementById('adminSidebarBackdrop');
+            const toggleBtn = document.getElementById('sidebarToggleBtn');
+            const closeBtn = document.getElementById('closeSidebarBtn');
+
+            function openSidebar() {
+                if (sidebar) sidebar.classList.add('sidebar-open');
+                if (backdrop) backdrop.classList.add('show');
+                document.body.style.overflow = 'hidden';
+            }
+
+            function closeSidebar() {
+                if (sidebar) sidebar.classList.remove('sidebar-open');
+                if (backdrop) backdrop.classList.remove('show');
+                document.body.style.overflow = '';
+            }
+
+            if (toggleBtn) {
+                toggleBtn.addEventListener('click', function (e) {
+                    e.stopPropagation();
+                    if (sidebar && sidebar.classList.contains('sidebar-open')) {
+                        closeSidebar();
+                    } else {
+                        openSidebar();
+                    }
+                });
+            }
+
+            if (closeBtn) closeBtn.addEventListener('click', closeSidebar);
+            if (backdrop) backdrop.addEventListener('click', closeSidebar);
+
+            // Auto-close on resize back to desktop
+            window.addEventListener('resize', function () {
+                if (window.innerWidth >= 992) {
+                    closeSidebar();
+                }
+            });
+        });
     </script>
 
     @stack('scripts')
