@@ -2,9 +2,7 @@
 
 <div class="promo-card">
     <div class="promo-card-banner">
-        <img src="{{ $promotion->banner_image ?: 'https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=800&q=80' }}"
-             alt="{{ $promotion->title }}"
-             loading="lazy">
+        <x-fallback-image :src="$promotion->banner_image" alt="{{ $promotion->title }}" loading="lazy" />
         <div class="position-absolute top-0 end-0 m-2">
             <span class="badge bg-danger fw-bold px-2 py-1">
                 {{ $promotion->discount_label }}
