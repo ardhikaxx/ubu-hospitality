@@ -32,7 +32,7 @@
                     <tr>
                         <td>
                             @if($exp->featured_image)
-                                <img src="{{ $exp->featured_image }}" alt="{{ $exp->title_id }}" class="rounded object-fit-cover" width="60" height="45">
+                                <img src="{{ image_or_default($exp->featured_image) }}" alt="{{ $exp->title_id }}" class="rounded object-fit-cover" width="60" height="45" onerror="this.onerror=null;this.src='{{ asset('images/default-img.png') }}';">
                             @else
                                 <div class="bg-light rounded text-muted d-flex align-items-center justify-content-center" style="width: 60px; height: 45px;">
                                     <i class="bi bi-image"></i>
