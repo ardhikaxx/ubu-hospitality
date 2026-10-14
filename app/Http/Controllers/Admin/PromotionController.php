@@ -7,6 +7,7 @@ use App\Models\AuditLog;
 use App\Models\Brand;
 use App\Models\Promotion;
 use App\Models\Property;
+use App\Services\ImageUploadService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -36,7 +37,7 @@ class PromotionController extends Controller
         return view('admin.promotions.create', compact('brands', 'properties'));
     }
 
-    public function store(Request $request): RedirectResponse
+    public function store(Request $request, ImageUploadService $imageService): RedirectResponse
     {
         $validated = $request->validate([
             'code' => 'required|string|max:50|unique:promotions,code',
@@ -51,6 +52,7 @@ class PromotionController extends Controller
             'stay_period_start' => 'required|date',
             'stay_period_end' => 'required|date|after_or_equal:stay_period_start',
             'banner_image' => 'nullable|string',
+            'banner_image_file' => 'nullable|file|mimes:jpeg,png,jpg,webp|max:5120',
             'terms_conditions_id' => 'nullable|string',
             'terms_conditions_en' => 'nullable|string',
             'description_id' => 'nullable|string',
@@ -67,6 +69,15 @@ class PromotionController extends Controller
         $validated['is_new_user_only'] = $request->boolean('is_new_user_only');
         $validated['is_popup'] = $request->boolean('is_popup');
         $validated['priority'] = (int) ($validated['priority'] ?? 0);
+
+        if ($request->hasFile('banner_image_file')) {
+            $validated['banner_image'] = $imageService->processAndStore(
+                $request->file('banner_image_file'),
+                'promotions',
+                'promo_banner'
+            );
+        }
+        unset($validated['banner_image_file']);
 
         $brandIds = $validated['brand_ids'] ?? [];
         $propertyIds = $validated['property_ids'] ?? [];
@@ -98,7 +109,7 @@ class PromotionController extends Controller
         return view('admin.promotions.edit', compact('promotion', 'brands', 'properties', 'selectedBrands', 'selectedProperties'));
     }
 
-    public function update(Request $request, Promotion $promotion): RedirectResponse
+    public function update(Request $request, Promotion $promotion, ImageUploadService $imageService): RedirectResponse
     {
         $validated = $request->validate([
             'code' => 'required|string|max:50|unique:promotions,code,'.$promotion->id,
@@ -113,6 +124,7 @@ class PromotionController extends Controller
             'stay_period_start' => 'required|date',
             'stay_period_end' => 'required|date|after_or_equal:stay_period_start',
             'banner_image' => 'nullable|string',
+            'banner_image_file' => 'nullable|file|mimes:jpeg,png,jpg,webp|max:5120',
             'terms_conditions_id' => 'nullable|string',
             'terms_conditions_en' => 'nullable|string',
             'description_id' => 'nullable|string',
@@ -128,6 +140,16 @@ class PromotionController extends Controller
         $validated['is_new_user_only'] = $request->boolean('is_new_user_only');
         $validated['is_popup'] = $request->boolean('is_popup');
         $validated['priority'] = (int) ($validated['priority'] ?? 0);
+
+        if ($request->hasFile('banner_image_file')) {
+            $validated['banner_image'] = $imageService->replace(
+                $request->file('banner_image_file'),
+                $promotion->banner_image,
+                'promotions',
+                'promo_banner'
+            );
+        }
+        unset($validated['banner_image_file']);
 
         $brandIds = $validated['brand_ids'] ?? [];
         $propertyIds = $validated['property_ids'] ?? [];
@@ -148,9 +170,14 @@ class PromotionController extends Controller
         return redirect()->route('admin.promotions.index')->with('success', "Promo {$promotion->code} berhasil diperbarui.");
     }
 
-    public function destroy(Promotion $promotion): RedirectResponse
+    public function destroy(Promotion $promotion, ImageUploadService $imageService): RedirectResponse
     {
         $code = $promotion->code;
+
+        if (! empty($promotion->banner_image)) {
+            $imageService->delete($promotion->banner_image);
+        }
+
         $promotion->brands()->detach();
         $promotion->properties()->detach();
         $promotion->delete();
