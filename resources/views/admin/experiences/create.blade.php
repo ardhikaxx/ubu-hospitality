@@ -14,7 +14,7 @@
 </div>
 
 <div class="admin-card p-4">
-    <form action="{{ route('admin.experiences.store') }}" method="POST">
+    <form action="{{ route('admin.experiences.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
 
         <div class="row g-3 mb-4">
@@ -67,9 +67,14 @@
                 <input type="text" name="location" class="form-control" value="{{ old('location', 'Yogyakarta Area') }}" placeholder="Contoh: Private Pool Villa atau Sleman Area">
             </div>
 
-            <div class="col-12">
-                <label class="form-label">URL Foto Utama</label>
-                <input type="text" name="featured_image" class="form-control" value="{{ old('featured_image', 'https://images.unsplash.com/photo-1544161515-4ab6ce6db874?auto=format&fit=crop&w=1200&q=80') }}">
+            <div class="col-md-6">
+                <label class="form-label fw-bold">Upload Foto Utama</label>
+                <input type="file" name="featured_image_file" class="form-control" accept="image/*">
+                <small class="text-muted d-block mt-1">Format: JPG, PNG, WEBP. Maks 5MB. Disimpan otomatis tanpa storage:link.</small>
+            </div>
+            <div class="col-md-6">
+                <label class="form-label">Atau URL Foto Utama (Alternatif)</label>
+                <input type="text" name="featured_image" class="form-control" value="{{ old('featured_image') }}" placeholder="https://...">
             </div>
 
             <div class="col-md-6">
