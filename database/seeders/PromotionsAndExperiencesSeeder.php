@@ -79,7 +79,7 @@ class PromotionsAndExperiencesSeeder extends Seeder
         }
 
         // 2. Experiences
-        Experience::firstOrCreate(
+        Experience::updateOrCreate(
             ['slug' => 'floating-breakfast-romantis'],
             [
                 'title_id' => 'Floating Breakfast Romantis di Kolam Renang',
@@ -89,7 +89,7 @@ class PromotionsAndExperiencesSeeder extends Seeder
                 'short_description_en' => 'Start your morning with a lavish floating breakfast served on an aesthetic tray directly in your private pool.',
                 'content_id' => 'Floating Breakfast merupakan salah satu pengalaman paling diminati di Ubu Hospitality. Chef kami menyiapkan pilihan menu khas Indonesia seperti Nasi Goreng Spesial atau American Breakfast lengkap dengan croissant hangat, jus buah segar, teh/kopi pilihan, serta hiasan kelopak bunga di sekitar kolam renang.',
                 'content_en' => 'Floating Breakfast is one of the most beloved signature experiences at Ubu Hospitality. Enjoy freshly prepared Indonesian or Continental breakfast sets adorned with fresh tropical flowers.',
-                'featured_image' => 'https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=800&q=80',
+                'featured_image' => '/images/experiences/floating-breakfast.jpg',
                 'price_display' => 'Rp 175.000 / 2 orang',
                 'location' => 'Tersedia di seluruh unit villa berkolam renang',
                 'brand_id' => $brandUbu?->id,
@@ -98,7 +98,7 @@ class PromotionsAndExperiencesSeeder extends Seeder
             ]
         );
 
-        Experience::firstOrCreate(
+        Experience::updateOrCreate(
             ['slug' => 'merapi-lava-tour-sunrise-jeep'],
             [
                 'title_id' => 'Merapi Lava Tour & Sunrise Jeep Adventure',
@@ -108,7 +108,7 @@ class PromotionsAndExperiencesSeeder extends Seeder
                 'short_description_en' => 'Explore the scenic slopes of Mount Merapi at dawn with an exclusive 4WD jeep adventure picked up directly from the villa.',
                 'content_id' => 'Pengalaman petualangan memacu adrenalin menyusuri trek bebatuan bekas aliran lava Merapi, mengunjungi Bunker Kaliadem, Batu Alien, dan Museum Mini Sisa Hartaku.',
                 'content_en' => 'Adrenaline-pumping journey across historical lava trails, Kaliadem Bunker, Alien Rock, and the historic memorial museum.',
-                'featured_image' => 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80',
+                'featured_image' => '/images/experiences/merapi-lava-tour.jpg',
                 'price_display' => 'Mulai Rp 450.000 / jeep (maks. 4 orang)',
                 'location' => 'Kaliurang & Lereng Merapi',
                 'sort_order' => 2,
@@ -116,7 +116,7 @@ class PromotionsAndExperiencesSeeder extends Seeder
             ]
         );
 
-        Experience::firstOrCreate(
+        Experience::updateOrCreate(
             ['slug' => 'private-bbq-dining-setup'],
             [
                 'title_id' => 'Private Chef Villa BBQ Dinner',
@@ -126,10 +126,61 @@ class PromotionsAndExperiencesSeeder extends Seeder
                 'short_description_en' => 'Intimate family evening with premium grilled meats and fresh seafood prepared on-site by our private villa chef.',
                 'content_id' => 'Tidak perlu repot keluar villa saat malam hari. Tim kami akan menyiapkan meja makan outdoor dengan penerangan lampu gantung estetik, memanggang daging wagyu meltique, sate ayam bumbu rempah, jagung manis, dan hidangan penutup istimewa.',
                 'content_en' => 'No need to leave the comfort of your villa. Our team arranges a delightful candlelit outdoor table, succulent grill cuts, and desserts.',
-                'featured_image' => 'https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=800&q=80',
+                'featured_image' => '/images/experiences/bbq-package.webp',
                 'price_display' => 'Rp 295.000 / orang (Min. 4 orang)',
                 'location' => 'Di villa masing-masing',
                 'sort_order' => 3,
+                'status' => 'published',
+            ]
+        );
+
+        Experience::updateOrCreate(
+            ['slug' => 'professional-photography-service'],
+            [
+                'title_id' => 'Professional Photography Service',
+                'title_en' => 'Professional Photography Service',
+                'category' => 'service',
+                'short_description_id' => 'Abadikan momen berharga liburan Anda bersama keluarga atau pasangan dengan fotografer profesional berpengalaman.',
+                'short_description_en' => 'Capture your precious holiday moments with family or loved ones with an experienced professional photographer.',
+                'content_id' => 'Sesi foto privat selama 2 jam di area villa, mencakup edited photos resolusi tinggi dan semua file original.',
+                'content_en' => '2-hour private photoshoot session across the villa area, including high-resolution edited photos and all original files.',
+                'featured_image' => '/images/experiences/photoshoot-service.webp',
+                'price_display' => 'IDR 750.000 / Sesi',
+                'sort_order' => 4,
+                'status' => 'published',
+            ]
+        );
+
+        Experience::updateOrCreate(
+            ['slug' => 'special-traditional-in-villa-massage'],
+            [
+                'title_id' => 'Special Traditional In-Villa Massage',
+                'title_en' => 'Special Traditional In-Villa Massage',
+                'category' => 'wellness',
+                'short_description_id' => 'Relaksasi tubuh dan pikiran dengan perawatan pijat tradisional Jawa langsung di kenyamanan kamar atau gazebo villa Anda.',
+                'short_description_en' => 'Relax your body and mind with traditional Javanese massage treatments in the comfort of your villa room or gazebo.',
+                'content_id' => 'Terapis berpengalaman kami menggunakan minyak aromaterapi alami pilihan untuk memulihkan kesegaran tubuh Anda setelah seharian beraktivitas.',
+                'content_en' => 'Our experienced therapists use selected natural aromatherapy oils to restore your body’s freshness.',
+                'featured_image' => '/images/experiences/massage-spa.webp',
+                'price_display' => 'IDR 250.000 / Orang',
+                'sort_order' => 5,
+                'status' => 'published',
+            ]
+        );
+
+        Experience::updateOrCreate(
+            ['slug' => 'exclusive-rental-car-chauffeur'],
+            [
+                'title_id' => 'Exclusive Rental Car & Chauffeur',
+                'title_en' => 'Exclusive Rental Car & Chauffeur',
+                'category' => 'service',
+                'short_description_id' => 'Layanan transportasi privat dengan sopir ramah dan berpengalaman untuk mengantar Anda menjelajahi keindahan Yogyakarta.',
+                'short_description_en' => 'Private chauffeur transportation service to accompany your journey exploring the beauty of Yogyakarta.',
+                'content_id' => 'Armada kendaraan bersih, wangi, dan nyaman termasuk bahan bakar serta jasa sopir hingga 12 jam per hari.',
+                'content_en' => 'Clean, comfortable vehicles including fuel and professional driver service for up to 12 hours per day.',
+                'featured_image' => '/images/experiences/rental-car.webp',
+                'price_display' => 'IDR 650.000 / Hari',
+                'sort_order' => 6,
                 'status' => 'published',
             ]
         );
