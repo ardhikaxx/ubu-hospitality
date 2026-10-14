@@ -1,32 +1,36 @@
 :root {
-    /* Authentic Brand Identity Colors (From ubuvilla.com & ubuvilla.codeapps.xyz) */
-    --ubu-primary: #00758f;           /* Authentic Ubu Deep Teal / Cyan */
-    --ubu-primary-hover: #005d72;     /* Darker Teal Hover */
-    --ubu-primary-light: #e6f3f6;     /* Soft Sage/Teal Light */
-    --ubu-accent: #aa8453;            /* Authentic Ubu Luxury Warm Gold */
-    --ubu-accent-hover: #926f42;      /* Deep Gold Hover */
-    --ubu-accent-light: #fbf7f0;      /* Warm Gold Light */
-    --ubu-teal-gradient: linear-gradient(135deg, #0085a2 0%, #006771 100%);
+    /* Authentic Natural Brand Identity Colors (From ubuvilla.codeapps.xyz) */
+    --ubu-primary: #0085a2;           /* Signature Ubu Teal / Cyan */
+    --ubu-primary-hover: #00728c;     /* Darker Teal Hover (Solid) */
+    --ubu-primary-light: #e6f6f9;     /* Soft Light Teal Mint */
+    --ubu-accent: #0085a2;            /* Signature Ubu Accent */
+    --ubu-accent-hover: #00728c;      /* Deep Teal Hover */
+    --ubu-accent-light: #e6f6f9;      /* Soft Cyan Light */
+    --ubu-gold: #f1c40f;              /* Sun Gold Accent */
+    --ubu-gold-hover: #d4a007;        /* Golden Amber Hover */
+    --ubu-teal-gradient: #0085a2;     /* Solid Primary (No Gradients) */
 
     /* Secondary Brand Accents */
-    --buruj-primary: #0f2c3d;
-    --buruj-accent: #d4af37;
+    --buruj-primary: #222222;
+    --buruj-accent: #f1c40f;
 
-    /* Neutrals */
-    --ubu-dark: #121815;
-    --ubu-text-main: #222222;
-    --ubu-text-muted: #60666a;
-    --ubu-text-light: #94a3b8;
-    --ubu-bg-main: #fcfbf9;
+    /* Neutrals (Natural Charcoal & Soft Cream from codeapps.xyz - No Navy Blue & No Brown) */
+    --ubu-dark: #222222;              /* Clean Natural Charcoal */
+    --ubu-dark-surface: #1e1e1e;      /* Deep Charcoal Surface */
+    --ubu-text-main: #222222;         /* Primary Dark Text */
+    --ubu-text-muted: #666666;        /* Natural Gray Body Text */
+    --ubu-text-light: #999999;        /* Soft Gray Muted */
+    --ubu-bg-main: #ffffff;           /* Clean White */
     --ubu-bg-surface: #ffffff;
-    --ubu-bg-alt: #f8f5f0;
-    --ubu-border: #e6e4dc;
-    --ubu-border-focus: #00758f;
+    --ubu-bg-alt: #f8f5f0;            /* Natural Warm Cream (.bg-cream) */
+    --ubu-sand-light: #f1eeeb;        /* Soft Linen Accent */
+    --ubu-border: #ececec;            /* Clean Light Border */
+    --ubu-border-focus: #0085a2;
 
     /* Feedback Colors */
     --ubu-success: #15803d;
     --ubu-danger: #b91c1c;
-    --ubu-warning: #b45309;
+    --ubu-warning: #f1c40f;
     --ubu-info: #0369a1;
 
     /* Elevation / Shadows */
