@@ -27,7 +27,64 @@ use App\Http\Controllers\PartnershipController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\PropertyController;
 use App\Http\Controllers\SitemapController;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Route;
+
+/*
+|--------------------------------------------------------------------------
+| Uploads & Static Media Streaming (Without storage:link)
+|--------------------------------------------------------------------------
+*/
+Route::get('/uploads/{folder}/{filename}', function (string $folder, string $filename) {
+    $cleanFolder = str_replace(['..', '\\'], ['', '/'], $folder);
+    $cleanFile = str_replace(['..', '\\'], ['', '/'], $filename);
+
+    $publicPath = public_path("uploads/{$cleanFolder}/{$cleanFile}");
+    $storagePath = storage_path("uploads/{$cleanFolder}/{$cleanFile}");
+
+    $path = File::exists($publicPath) ? $publicPath : (File::exists($storagePath) ? $storagePath : null);
+
+    if (! $path || ! File::exists($path)) {
+        abort(404);
+    }
+
+    $file = File::get($path);
+    $type = File::mimeType($path);
+    $lastModified = File::lastModified($path);
+
+    return response($file, 200)
+        ->header('Content-Type', $type)
+        ->header('Cache-Control', 'public, max-age=31536000, immutable')
+        ->header('Last-Modified', gmdate('D, d M Y H:i:s', $lastModified).' GMT')
+        ->header('ETag', md5($file));
+})->where('filename', '.*');
+
+Route::get('/storage/{path}', function (string $path) {
+    $cleanPath = ltrim(str_replace(['..', '\\'], ['', '/'], $path), '/');
+
+    $candidates = [
+        public_path($cleanPath),
+        public_path("uploads/{$cleanPath}"),
+        storage_path("uploads/{$cleanPath}"),
+        storage_path("app/public/{$cleanPath}"),
+    ];
+
+    foreach ($candidates as $cand) {
+        if (File::exists($cand) && ! File::isDirectory($cand)) {
+            $file = File::get($cand);
+            $type = File::mimeType($cand);
+            $lastModified = File::lastModified($cand);
+
+            return response($file, 200)
+                ->header('Content-Type', $type)
+                ->header('Cache-Control', 'public, max-age=31536000, immutable')
+                ->header('Last-Modified', gmdate('D, d M Y H:i:s', $lastModified).' GMT')
+                ->header('ETag', md5($file));
+        }
+    }
+
+    abort(404);
+})->where('path', '.*');
 
 /*
 |--------------------------------------------------------------------------
@@ -44,6 +101,21 @@ Route::get('/faq', [PageController::class, 'faq'])->name('faq');
 Route::get('/privacy-policy', [PageController::class, 'privacyPolicy'])->name('privacy-policy');
 Route::get('/terms', [PageController::class, 'terms'])->name('terms');
 Route::get('/cookies', [PageController::class, 'cookies'])->name('cookies');
+Route::get('/celebrity', [PageController::class, 'celebrity'])->name('celebrity');
+Route::get('/packages', [PageController::class, 'packages'])->name('packages');
+Route::get('/life-at-ubu', [PageController::class, 'lifeAtUbu'])->name('life-at-ubu');
+Route::get('/csr', [PageController::class, 'csr'])->name('csr');
+Route::get('/career', [PageController::class, 'career'])->name('career');
+Route::permanentRedirect('/carrer', '/career');
+Route::permanentRedirect('/join-us', '/partnership');
+Route::permanentRedirect('/promotion', '/offer');
+Route::permanentRedirect('/promo', '/offer');
+Route::permanentRedirect('/villa', '/stay');
+Route::permanentRedirect('/villas', '/stay');
+Route::permanentRedirect('/about-us', '/about');
+Route::permanentRedirect('/contact-us', '/contact');
+Route::permanentRedirect('/term-condition', '/terms');
+Route::permanentRedirect('/terms-and-conditions', '/terms');
 
 // Brands
 Route::get('/brand/{slug}', [BrandController::class, 'show'])->name('brand.show');
