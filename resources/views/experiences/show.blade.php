@@ -20,7 +20,7 @@
     <div class="row g-5">
         <div class="col-lg-8">
             <div class="rounded-4 overflow-hidden mb-4 shadow-sm" style="aspect-ratio: 16 / 9;">
-                <img src="{{ $experience->featured_image }}" alt="{{ $experience->title }}" class="w-100 h-100 object-fit-cover">
+                <x-fallback-image :src="$experience->featured_image_url" alt="{{ $experience->title }}" class="w-100 h-100 object-fit-cover" loading="lazy" />
             </div>
 
             <div class="card border rounded-4 p-4 shadow-sm bg-white mb-4">
@@ -40,7 +40,7 @@
                     Aktivitas ini dapat ditambahkan saat pemesanan villa Anda atau dipesan langsung melalui butler dan customer care kami.
                 </p>
 
-                <a href="https://wa.me/6281234567890?text=Halo%20Ubu%20Hospitality%2C%20saya%20tertarik%20dengan%20aktivitas%20{{ urlencode($experience->title) }}"
+                <a href="https://api.whatsapp.com/send?phone=6282320003297&text={{ urlencode('Halo Ubu Hospitality, saya tertarik dengan aktivitas: ' . $experience->title) }}"
                    target="_blank"
                    class="btn btn-ubu-primary w-100 py-3 fw-bold mb-2">
                     <i class="bi bi-whatsapp me-1"></i> Pesan via WhatsApp CS
