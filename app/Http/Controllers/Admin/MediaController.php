@@ -5,10 +5,9 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\AuditLog;
 use App\Models\MediaFile;
+use App\Services\ImageUploadService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Str;
 use Illuminate\View\View;
 
 class MediaController extends Controller
@@ -20,28 +19,29 @@ class MediaController extends Controller
         return view('admin.media.index', compact('mediaFiles'));
     }
 
-    public function store(Request $request): RedirectResponse
+    public function store(Request $request, ImageUploadService $imageService): RedirectResponse
     {
         $request->validate([
-            'file' => 'required|file|mimes:jpeg,png,jpg,webp,svg,gif|max:5120',
+            'file' => 'required|file|mimes:jpeg,png,jpg,webp,svg,gif|max:10240',
             'alt_text_id' => 'nullable|string|max:200',
             'caption' => 'nullable|string|max:255',
         ]);
 
         $file = $request->file('file');
         $originalName = $file->getClientOriginalName();
-        $extension = $file->getClientOriginalExtension();
-        $filename = 'media_'.date('Ymd_His').'_'.Str::random(8).'.'.$extension;
+        $fileSize = $file->getSize();
+        $mimeType = $file->getMimeType();
 
-        $path = $file->storeAs('uploads/media', $filename, 'public');
+        $path = $imageService->processAndStore($file, 'media', 'media');
+        $filename = basename($path);
 
         $media = MediaFile::create([
             'filename' => $filename,
             'original_name' => $originalName,
-            'disk' => 'public',
+            'disk' => 'local',
             'path' => $path,
-            'mime_type' => $file->getMimeType(),
-            'file_size' => $file->getSize(),
+            'mime_type' => $mimeType,
+            'file_size' => $fileSize,
             'alt_text_id' => $request->alt_text_id ?: pathinfo($originalName, PATHINFO_FILENAME),
             'caption' => $request->caption,
             'uploaded_by' => auth()->id(),
@@ -58,11 +58,10 @@ class MediaController extends Controller
         return back()->with('success', 'File media berhasil diunggah.');
     }
 
-    public function destroy(MediaFile $media): RedirectResponse
+    public function destroy(MediaFile $media, ImageUploadService $imageService): RedirectResponse
     {
-        if (Storage::disk($media->disk)->exists($media->path)) {
-            Storage::disk($media->disk)->delete($media->path);
-        }
+        $imageService->delete($media->path);
+        $imageService->delete('uploads/media/'.$media->filename);
 
         $media->delete();
 
