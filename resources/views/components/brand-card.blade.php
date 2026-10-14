@@ -1,12 +1,12 @@
 @props(['brand'])
 
 <div class="brand-card">
-    <div class="brand-card-accent-bar" style="background-color: {{ $brand->accent_color ?: '#1b3b2b' }};"></div>
+    <div class="brand-card-accent-bar" style="background-color: {{ $brand->accent_color ?: '#0085a2' }};"></div>
 
     <div class="d-flex align-items-center justify-content-between mb-3 pt-2">
         <div>
             <h3 class="font-serif fw-bold text-dark mb-0">{{ $brand->name }}</h3>
-            <span class="small fw-semibold" style="color: {{ $brand->accent_color ?: '#1b3b2b' }};">
+            <span class="small fw-semibold" style="color: {{ $brand->accent_color ?: '#0085a2' }};">
                 {{ $brand->tagline }}
             </span>
         </div>
