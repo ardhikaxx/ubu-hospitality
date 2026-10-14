@@ -8,7 +8,7 @@
         <span class="badge bg-white text-dark rounded-pill px-3 py-2 fw-semibold mb-3 shadow-sm">
             <i class="bi bi-geo-alt-fill text-danger me-1"></i> Yogyakarta, Indonesia
         </span>
-        <h1 class="hero-title serif-font">
+        <h1 class="hero-title serif-font text-white">
             Satu Induk Beragam Pesona,<br>Kenyamanan Privat Tanpa Kompromi
         </h1>
         <p class="hero-subtitle mx-auto">
@@ -63,7 +63,7 @@
 @endif
 
 <!-- Master Brands Showcase (Multi-brand architecture) -->
-<section class="section-padding" style="background-color: var(--ubu-bg-alt);">
+<section id="brands" class="section-padding" style="background-color: var(--ubu-bg-alt);">
     <div class="container">
         <x-section-header
             pill="Multi-Brand Portfolio"
@@ -119,11 +119,7 @@
                     <a href="{{ route('stay.index', ['city' => $dest->name]) }}" class="text-decoration-none text-dark">
                         <div class="card border-0 rounded-4 overflow-hidden shadow-sm h-100 property-card">
                             <div style="aspect-ratio: 4 / 3; overflow: hidden; position: relative;">
-                                <img src="{{ $dest->image_path ?: 'https://images.unsplash.com/photo-1544644181-1484b3fdfc62?auto=format&fit=crop&w=600&q=80' }}"
-                                     alt="{{ $dest->name }}"
-                                     class="w-100 h-100 object-fit-cover"
-                                     style="transition: transform 0.4s ease;"
-                                     loading="lazy">
+                                <x-fallback-image :src="$dest->image_path" alt="{{ $dest->name }}" class="w-100 h-100 object-fit-cover" style="transition: transform 0.4s ease;" loading="lazy" />
                                 <div class="position-absolute inset-0 bg-dark opacity-25"></div>
                                 <div class="position-absolute bottom-0 start-0 p-3 text-white">
                                     <h4 class="font-serif fw-bold mb-0 text-white">{{ $dest->name }}</h4>
@@ -155,7 +151,7 @@
                 <div class="col-lg-4 col-md-6">
                     <div class="card border-0 rounded-4 overflow-hidden shadow-sm h-100 property-card">
                         <div style="aspect-ratio: 16 / 10; overflow: hidden; position: relative;">
-                            <img src="{{ $exp->featured_image }}" alt="{{ $exp->title }}" class="w-100 h-100 object-fit-cover">
+                            <x-fallback-image :src="$exp->featured_image_url" alt="{{ $exp->title }}" class="w-100 h-100 object-fit-cover" loading="lazy" />
                             <span class="badge bg-dark position-absolute top-0 end-0 m-3 px-3 py-2 rounded-pill">
                                 {{ ucfirst($exp->category) }}
                             </span>
@@ -179,7 +175,7 @@
 @endif
 
 <!-- Official Brand Video (Authentic Promotional Video from ubuvilla.codeapps.xyz) -->
-<section class="section-padding text-white position-relative" style="background: linear-gradient(135deg, #0b1a20 0%, #00758f 100%);">
+<section class="section-padding text-white position-relative" style="background-color: var(--ubu-dark, #222222);">
     <div class="container">
         <div class="row align-items-center g-4">
             <div class="col-lg-5 text-center text-lg-start">
@@ -189,7 +185,7 @@
                     Saksikan pesona keindahan dan kehangatan Ubu Villa di Yogyakarta. Dari private pool yang luas, kenyamanan ruang keluarga, hingga layanan butler personal yang siap menyempurnakan waktu liburan Anda.
                 </p>
                 <div class="d-flex flex-wrap gap-2 justify-content-center justify-content-lg-start">
-                    <a href="{{ route('stay.index') }}" class="btn btn-ubu-accent px-4 py-2 text-white">
+                    <a href="{{ route('stay.index') }}" class="btn btn-ubu-primary px-4 py-2 text-white">
                         <i class="bi bi-houses me-1"></i> Eksplorasi Villa
                     </a>
                     <a href="https://www.youtube.com/@ubuvillaindonesia" target="_blank" class="btn btn-outline-light px-4 py-2">
@@ -207,18 +203,18 @@
 </section>
 
 <!-- Partnership Call to Action Banner (RedDoorz-inspired clarity) -->
-<section class="py-5" style="background: linear-gradient(135deg, #16201b 0%, #1b3b2b 100%); color: #ffffff;">
+<section class="py-5 text-white" style="background-color: var(--ubu-primary, #0085a2);">
     <div class="container py-4">
         <div class="row align-items-center g-4">
             <div class="col-lg-8">
                 <span class="badge bg-warning text-dark fw-bold text-uppercase px-3 py-1 mb-2">Peluang Kemitraan</span>
                 <h2 class="font-serif display-6 fw-bold text-white mb-2">Miliki Villa atau Tanah di Yogyakarta?</h2>
-                <p class="text-white-50 fs-6 mb-0">
+                <p class="text-white fs-6 mb-0" style="opacity: 0.95;">
                     Percayakan pengelolaan properti Anda kepada Ubu Hospitality. Kami menangani operasional harian, pemasaran digital terintegrasi, pemeliharaan standar kebersihan bintang lima, serta laporan finansial transparan.
                 </p>
             </div>
             <div class="col-lg-4 text-lg-end">
-                <a href="{{ route('partnership.index') }}" class="btn btn-ubu-accent btn-lg px-4 py-3 shadow">
+                <a href="{{ route('partnership.index') }}#submit" class="btn btn-ubu-gold btn-lg px-4 py-3 shadow-lg rounded-pill">
                     <i class="bi bi-building-up me-2"></i> Ajukan Properti Anda
                 </a>
             </div>
@@ -265,7 +261,7 @@
                 <div class="col-lg-4 col-md-6">
                     <div class="card border-0 rounded-4 overflow-hidden shadow-sm h-100 property-card">
                         <div style="aspect-ratio: 16 / 10; overflow: hidden;">
-                            <img src="{{ $post->featured_image }}" alt="{{ $post->title }}" class="w-100 h-100 object-fit-cover">
+                            <x-fallback-image :src="$post->featured_image" alt="{{ $post->title }}" class="w-100 h-100 object-fit-cover" />
                         </div>
                         <div class="p-3 d-flex flex-column flex-grow-1">
                             <div class="d-flex align-items-center gap-2 small text-muted mb-2">
