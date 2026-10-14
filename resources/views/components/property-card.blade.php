@@ -7,10 +7,7 @@
 
 <div class="property-card">
     <div class="property-card-img-wrapper">
-        <img src="{{ $property->featured_image ?: 'https://images.unsplash.com/photo-1580587771525-78b9dba3b914?auto=format&fit=crop&w=800&q=80' }}"
-             alt="{{ $property->name }}"
-             class="property-card-img"
-             loading="lazy">
+        <x-fallback-image :src="$property->featured_image" alt="{{ $property->name }}" class="property-card-img" loading="lazy" />
 
         <div class="property-card-badges">
             @if($property->is_featured)
