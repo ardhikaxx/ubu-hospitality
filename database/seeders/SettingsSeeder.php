@@ -15,17 +15,19 @@ class SettingsSeeder extends Seeder
             ['key' => 'brand_name', 'value' => 'Ubu Hospitality', 'group' => 'general', 'type' => 'text', 'description' => 'Nama brand utama'],
             ['key' => 'site_tagline_id', 'value' => 'Master of Warmth & Authentic Hospitality', 'group' => 'general', 'type' => 'text', 'description' => 'Tagline utama'],
             ['key' => 'site_tagline_en', 'value' => 'Master of Warmth & Authentic Hospitality', 'group' => 'general', 'type' => 'text', 'description' => 'Tagline EN'],
-            ['key' => 'contact_whatsapp', 'value' => '+6281234567890', 'group' => 'contact', 'type' => 'text', 'description' => 'Nomor WhatsApp resmi'],
-            ['key' => 'contact_whatsapp_url', 'value' => 'https://wa.me/6281234567890?text=Halo%20Ubu%20Hospitality%2C%20saya%20ingin%20bertanya%20mengenai%20reservasi', 'group' => 'contact', 'type' => 'text', 'description' => 'Direct link WhatsApp CS'],
-            ['key' => 'contact_email', 'value' => 'reservation@ubuhospitality.com', 'group' => 'contact', 'type' => 'text', 'description' => 'Email resmi reservasi'],
-            ['key' => 'contact_partnership_email', 'value' => 'partnership@ubuhospitality.com', 'group' => 'contact', 'type' => 'text', 'description' => 'Email kemitraan'],
-            ['key' => 'contact_phone', 'value' => '(0274) 889977', 'group' => 'contact', 'type' => 'text', 'description' => 'Nomor telepon kantor'],
-            ['key' => 'contact_address', 'value' => 'Jl. Gito Gati No. 88, Sariharjo, Ngaglik, Sleman, D.I. Yogyakarta 55581', 'group' => 'contact', 'type' => 'text', 'description' => 'Alamat kantor pusat'],
+            ['key' => 'contact_whatsapp', 'value' => '0823-2000-3297', 'group' => 'contact', 'type' => 'text', 'description' => 'Nomor WhatsApp resmi'],
+            ['key' => 'contact_whatsapp_url', 'value' => 'https://api.whatsapp.com/send?phone=+6282320003297', 'group' => 'contact', 'type' => 'text', 'description' => 'Direct link WhatsApp CS'],
+            ['key' => 'contact_email', 'value' => 'info@ubuvilla.com', 'group' => 'contact', 'type' => 'text', 'description' => 'Email resmi reservasi'],
+            ['key' => 'contact_partnership_email', 'value' => 'partnership@ubuvilla.com', 'group' => 'contact', 'type' => 'text', 'description' => 'Email kemitraan'],
+            ['key' => 'contact_phone', 'value' => '0823-2000-3297', 'group' => 'contact', 'type' => 'text', 'description' => 'Nomor telepon kantor'],
+            ['key' => 'contact_address', 'value' => 'Jl. Pandhawa No.002/17, Tegalrejo, Sariharjo, Kec. Ngaglik, Kabupaten Sleman, Daerah Istimewa Yogyakarta 55581', 'group' => 'contact', 'type' => 'text', 'description' => 'Alamat kantor pusat'],
 
             // Social Media
-            ['key' => 'social_instagram', 'value' => 'https://instagram.com/ubuhospitality', 'group' => 'social', 'type' => 'text', 'description' => 'Akun Instagram resmi'],
-            ['key' => 'social_tiktok', 'value' => 'https://tiktok.com/@ubuhospitality', 'group' => 'social', 'type' => 'text', 'description' => 'Akun TikTok resmi'],
-            ['key' => 'social_youtube', 'value' => 'https://youtube.com/@ubuhospitality', 'group' => 'social', 'type' => 'text', 'description' => 'Channel YouTube resmi'],
+            ['key' => 'social_instagram', 'value' => 'https://www.instagram.com/ubuvilla/', 'group' => 'social', 'type' => 'text', 'description' => 'Akun Instagram resmi'],
+            ['key' => 'social_tiktok', 'value' => 'https://www.tiktok.com/@ubuvilla', 'group' => 'social', 'type' => 'text', 'description' => 'Akun TikTok resmi'],
+            ['key' => 'social_youtube', 'value' => 'https://www.youtube.com/@ubuvillaindonesia', 'group' => 'social', 'type' => 'text', 'description' => 'Channel YouTube resmi'],
+            ['key' => 'social_facebook', 'value' => 'https://www.facebook.com/ubuvillaindonesia/', 'group' => 'social', 'type' => 'text', 'description' => 'Halaman Facebook resmi'],
+            ['key' => 'social_whatsapp', 'value' => 'https://api.whatsapp.com/send?phone=+6282320003297', 'group' => 'social', 'type' => 'text', 'description' => 'Direct WhatsApp link'],
             ['key' => 'social_linkedin', 'value' => 'https://linkedin.com/company/ubu-hospitality', 'group' => 'social', 'type' => 'text', 'description' => 'Halaman LinkedIn'],
 
             // SEO Defaults
