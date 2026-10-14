@@ -9,6 +9,7 @@ use App\Models\Brand;
 use App\Models\Destination;
 use App\Models\Property;
 use App\Models\PropertyType;
+use App\Services\ImageUploadService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -49,7 +50,7 @@ class PropertyController extends Controller
         return view('admin.properties.create', compact('brands', 'propertyTypes', 'destinations', 'amenities'));
     }
 
-    public function store(Request $request): RedirectResponse
+    public function store(Request $request, ImageUploadService $imageService): RedirectResponse
     {
         $validated = $request->validate([
             'name' => 'required|string|max:150',
@@ -74,7 +75,10 @@ class PropertyController extends Controller
             'is_syariah' => 'nullable|boolean',
             'sentec_property_id' => 'nullable|string|max:100|unique:properties,sentec_property_id',
             'featured_image' => 'nullable|string',
+            'featured_image_file' => 'nullable|file|mimes:jpeg,png,jpg,webp|max:5120',
             'gallery_images_raw' => 'nullable|string',
+            'gallery_files' => 'nullable|array',
+            'gallery_files.*' => 'file|mimes:jpeg,png,jpg,webp|max:5120',
             'house_rules_id' => 'nullable|string',
             'cancellation_policy_id' => 'nullable|string',
             'checkin_time' => 'nullable|string|max:10',
@@ -90,10 +94,29 @@ class PropertyController extends Controller
         $validated['is_featured'] = $request->boolean('is_featured');
         $validated['is_syariah'] = $request->boolean('is_syariah');
 
+        if ($request->hasFile('featured_image_file')) {
+            $validated['featured_image'] = $imageService->processAndStore(
+                $request->file('featured_image_file'),
+                'properties',
+                'property_main'
+            );
+        }
+        unset($validated['featured_image_file']);
+
+        $gallery = [];
         if (! empty($validated['gallery_images_raw'])) {
-            $validated['gallery_images'] = array_values(array_filter(array_map('trim', explode("\n", $validated['gallery_images_raw']))));
+            $gallery = array_values(array_filter(array_map('trim', explode("\n", $validated['gallery_images_raw']))));
         }
         unset($validated['gallery_images_raw']);
+
+        if ($request->hasFile('gallery_files')) {
+            foreach ($request->file('gallery_files') as $gFile) {
+                $gallery[] = $imageService->processAndStore($gFile, 'properties', 'property_gallery');
+            }
+        }
+        unset($validated['gallery_files']);
+
+        $validated['gallery_images'] = $gallery;
 
         $amenityIds = $validated['amenities'] ?? [];
         unset($validated['amenities']);
@@ -124,7 +147,7 @@ class PropertyController extends Controller
         return view('admin.properties.edit', compact('property', 'brands', 'propertyTypes', 'destinations', 'amenities', 'selectedAmenities'));
     }
 
-    public function update(Request $request, Property $property): RedirectResponse
+    public function update(Request $request, Property $property, ImageUploadService $imageService): RedirectResponse
     {
         $validated = $request->validate([
             'name' => 'required|string|max:150',
@@ -149,7 +172,10 @@ class PropertyController extends Controller
             'is_syariah' => 'nullable|boolean',
             'sentec_property_id' => 'nullable|string|max:100|unique:properties,sentec_property_id,'.$property->id,
             'featured_image' => 'nullable|string',
+            'featured_image_file' => 'nullable|file|mimes:jpeg,png,jpg,webp|max:5120',
             'gallery_images_raw' => 'nullable|string',
+            'gallery_files' => 'nullable|array',
+            'gallery_files.*' => 'file|mimes:jpeg,png,jpg,webp|max:5120',
             'house_rules_id' => 'nullable|string',
             'cancellation_policy_id' => 'nullable|string',
             'checkin_time' => 'nullable|string|max:10',
@@ -165,10 +191,32 @@ class PropertyController extends Controller
         $validated['is_featured'] = $request->boolean('is_featured');
         $validated['is_syariah'] = $request->boolean('is_syariah');
 
+        if ($request->hasFile('featured_image_file')) {
+            $validated['featured_image'] = $imageService->replace(
+                $request->file('featured_image_file'),
+                $property->featured_image,
+                'properties',
+                'property_main'
+            );
+        }
+        unset($validated['featured_image_file']);
+
+        $gallery = [];
         if (! empty($validated['gallery_images_raw'])) {
-            $validated['gallery_images'] = array_values(array_filter(array_map('trim', explode("\n", $validated['gallery_images_raw']))));
+            $gallery = array_values(array_filter(array_map('trim', explode("\n", $validated['gallery_images_raw']))));
+        } elseif (is_array($property->gallery_images)) {
+            $gallery = $property->gallery_images;
         }
         unset($validated['gallery_images_raw']);
+
+        if ($request->hasFile('gallery_files')) {
+            foreach ($request->file('gallery_files') as $gFile) {
+                $gallery[] = $imageService->processAndStore($gFile, 'properties', 'property_gallery');
+            }
+        }
+        unset($validated['gallery_files']);
+
+        $validated['gallery_images'] = $gallery;
 
         $amenityIds = $validated['amenities'] ?? [];
         unset($validated['amenities']);
@@ -190,10 +238,20 @@ class PropertyController extends Controller
         return redirect()->route('admin.properties.index')->with('success', "Properti {$property->name} berhasil diperbarui.");
     }
 
-    public function destroy(Property $property): RedirectResponse
+    public function destroy(Property $property, ImageUploadService $imageService): RedirectResponse
     {
         $name = $property->name;
         $id = $property->id;
+
+        if (! empty($property->featured_image)) {
+            $imageService->delete($property->featured_image);
+        }
+
+        if (is_array($property->gallery_images)) {
+            foreach ($property->gallery_images as $gImg) {
+                $imageService->delete($gImg);
+            }
+        }
 
         $property->delete();
 
