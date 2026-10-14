@@ -2,13 +2,13 @@
 
 @section('content')
 <!-- Brand Hero Cover -->
-<section class="position-relative text-white py-5" style="background-color: {{ $brand->accent_color ?: '#1b3b2b' }}; min-height: 340px; display: flex; align-items: center;">
-    <div class="position-absolute inset-0 opacity-25" style="background-image: url('{{ $brand->cover_image_path }}'); background-size: cover; background-position: center;"></div>
+<section class="position-relative text-white py-5" style="background-color: {{ $brand->accent_color ?: '#0085a2' }}; min-height: 340px; display: flex; align-items: center;">
+    <div class="position-absolute inset-0 opacity-25" style="background-image: url('{{ image_or_default($brand->cover_image_path) }}'); background-size: cover; background-position: center;"></div>
     <div class="container position-relative z-2 py-4">
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb small mb-3">
-                <li class="breadcrumb-item"><a href="{{ url('/') }}" class="text-white-50 text-decoration-none">Beranda</a></li>
-                <li class="breadcrumb-item"><a href="{{ route('stay.index') }}" class="text-white-50 text-decoration-none">Brands</a></li>
+                <li class="breadcrumb-item"><a href="{{ url('/') }}" class="text-white text-decoration-none" style="opacity: 0.85;">Beranda</a></li>
+                <li class="breadcrumb-item"><a href="{{ route('stay.index') }}" class="text-white text-decoration-none" style="opacity: 0.85;">Brands</a></li>
                 <li class="breadcrumb-item active text-white" aria-current="page">{{ $brand->name }}</li>
             </ol>
         </nav>
@@ -19,7 +19,7 @@
                 <span class="badge-syariah fs-6 px-3 py-2"><i class="bi bi-shield-check"></i> Syariah Compliant</span>
             @endif
         </div>
-        <p class="fs-5 text-white-50 max-w-2xl mb-0" style="max-width: 680px;">{{ $brand->tagline }}</p>
+        <p class="fs-5 text-white max-w-2xl mb-0" style="max-width: 680px; opacity: 0.95;">{{ $brand->tagline }}</p>
     </div>
 </section>
 
@@ -40,7 +40,7 @@
                 <ul class="list-unstyled">
                     @foreach($brand->character_highlights as $highlight)
                         <li class="d-flex align-items-start gap-2 mb-2 text-dark">
-                            <i class="bi bi-patch-check-fill mt-1" style="color: {{ $brand->accent_color ?: '#1b3b2b' }};"></i>
+                            <i class="bi bi-patch-check-fill mt-1" style="color: {{ $brand->accent_color ?: '#0085a2' }};"></i>
                             <span>{{ $highlight }}</span>
                         </li>
                     @endforeach
@@ -50,9 +50,7 @@
 
         <div class="col-lg-6">
             <div class="rounded-4 overflow-hidden shadow-lg" style="aspect-ratio: 16 / 11;">
-                <img src="{{ $brand->cover_image_path ?: 'https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=1000&q=80' }}"
-                     alt="{{ $brand->name }}"
-                     class="w-100 h-100 object-fit-cover">
+                <x-fallback-image :src="$brand->cover_image_path" alt="{{ $brand->name }}" class="w-100 h-100 object-fit-cover" />
             </div>
         </div>
     </div>
