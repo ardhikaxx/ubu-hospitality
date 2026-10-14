@@ -13,7 +13,7 @@
     <style>
         body {
             font-family: var(--font-body);
-            background: linear-gradient(135deg, #121815 0%, #1b3b2b 100%);
+            background-color: var(--ubu-primary, #0085a2);
             min-height: 100vh;
             display: flex;
             align-items: center;
