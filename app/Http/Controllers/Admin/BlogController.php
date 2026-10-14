@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\AuditLog;
 use App\Models\BlogCategory;
 use App\Models\BlogPost;
+use App\Services\ImageUploadService;
 use Carbon\Carbon;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -39,7 +40,7 @@ class BlogController extends Controller
         return view('admin.blog.create', compact('categories'));
     }
 
-    public function store(Request $request): RedirectResponse
+    public function store(Request $request, ImageUploadService $imageService): RedirectResponse
     {
         $validated = $request->validate([
             'category_id' => 'required|exists:blog_categories,id',
@@ -51,6 +52,7 @@ class BlogController extends Controller
             'content_id' => 'required|string',
             'content_en' => 'nullable|string',
             'featured_image' => 'nullable|string',
+            'featured_image_file' => 'nullable|file|mimes:jpeg,png,jpg,webp|max:5120',
             'reading_time_minutes' => 'nullable|integer',
             'status' => 'required|string|in:published,draft,scheduled',
             'published_at' => 'nullable|date',
@@ -59,6 +61,15 @@ class BlogController extends Controller
         $validated['slug'] = ! empty($validated['slug']) ? Str::slug($validated['slug']) : Str::slug($validated['title_id']);
         $validated['author_id'] = auth()->id();
         $validated['reading_time_minutes'] = (int) ($validated['reading_time_minutes'] ?? 3);
+
+        if ($request->hasFile('featured_image_file')) {
+            $validated['featured_image'] = $imageService->processAndStore(
+                $request->file('featured_image_file'),
+                'blogs',
+                'blog_featured'
+            );
+        }
+        unset($validated['featured_image_file']);
 
         if ($validated['status'] === 'published' && empty($validated['published_at'])) {
             $validated['published_at'] = Carbon::now();
@@ -84,7 +95,7 @@ class BlogController extends Controller
         return view('admin.blog.edit', compact('post', 'categories'));
     }
 
-    public function update(Request $request, BlogPost $post): RedirectResponse
+    public function update(Request $request, BlogPost $post, ImageUploadService $imageService): RedirectResponse
     {
         $validated = $request->validate([
             'category_id' => 'required|exists:blog_categories,id',
@@ -96,6 +107,7 @@ class BlogController extends Controller
             'content_id' => 'required|string',
             'content_en' => 'nullable|string',
             'featured_image' => 'nullable|string',
+            'featured_image_file' => 'nullable|file|mimes:jpeg,png,jpg,webp|max:5120',
             'reading_time_minutes' => 'nullable|integer',
             'status' => 'required|string|in:published,draft,scheduled',
             'published_at' => 'nullable|date',
@@ -103,6 +115,16 @@ class BlogController extends Controller
 
         $validated['slug'] = Str::slug($validated['slug']);
         $validated['reading_time_minutes'] = (int) ($validated['reading_time_minutes'] ?? 3);
+
+        if ($request->hasFile('featured_image_file')) {
+            $validated['featured_image'] = $imageService->replace(
+                $request->file('featured_image_file'),
+                $post->featured_image,
+                'blogs',
+                'blog_featured'
+            );
+        }
+        unset($validated['featured_image_file']);
 
         if ($validated['status'] === 'published' && empty($validated['published_at'])) {
             $validated['published_at'] = Carbon::now();
@@ -121,9 +143,14 @@ class BlogController extends Controller
         return redirect()->route('admin.blog.index')->with('success', "Artikel {$post->title_id} berhasil diperbarui.");
     }
 
-    public function destroy(BlogPost $post): RedirectResponse
+    public function destroy(BlogPost $post, ImageUploadService $imageService): RedirectResponse
     {
         $title = $post->title_id;
+
+        if (! empty($post->featured_image)) {
+            $imageService->delete($post->featured_image);
+        }
+
         $post->delete();
 
         AuditLog::create([
