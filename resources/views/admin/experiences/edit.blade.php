@@ -14,7 +14,7 @@
 </div>
 
 <div class="admin-card p-4">
-    <form action="{{ route('admin.experiences.update', $experience) }}" method="POST">
+    <form action="{{ route('admin.experiences.update', $experience) }}" method="POST" enctype="multipart/form-data">
         @csrf
         @method('PUT')
 
@@ -68,8 +68,19 @@
                 <input type="text" name="location" class="form-control" value="{{ old('location', $experience->location) }}">
             </div>
 
-            <div class="col-12">
-                <label class="form-label">URL Foto Utama</label>
+            <div class="col-md-6">
+                <label class="form-label fw-bold">Ganti Foto Utama (Upload Baru)</label>
+                @if($experience->featured_image)
+                    <div class="mb-2 d-flex align-items-center gap-2 p-2 border rounded bg-light">
+                        <img src="{{ image_or_default($experience->featured_image) }}" alt="Preview" class="rounded object-fit-cover" style="width: 80px; height: 50px;">
+                        <span class="small text-muted text-truncate" style="max-width: 250px;">{{ basename($experience->featured_image) }}</span>
+                    </div>
+                @endif
+                <input type="file" name="featured_image_file" class="form-control" accept="image/*">
+                <small class="text-muted d-block mt-1">Upload gambar baru untuk mengganti foto utama.</small>
+            </div>
+            <div class="col-md-6">
+                <label class="form-label">Atau URL Foto Utama (Alternatif)</label>
                 <input type="text" name="featured_image" class="form-control" value="{{ old('featured_image', $experience->featured_image) }}">
             </div>
 
