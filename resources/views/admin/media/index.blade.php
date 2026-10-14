@@ -21,7 +21,7 @@
                 <div>
                     <div class="ratio ratio-1x1 bg-light rounded overflow-hidden mb-2 border position-relative group-action">
                         @if(str_starts-with($media->mime_type, 'image/'))
-                            <img src="{{ $media->url }}" alt="{{ $media->alt_text }}" class="object-fit-cover w-100 h-100">
+                            <img src="{{ image_or_default($media->url) }}" alt="{{ $media->alt_text }}" class="object-fit-cover w-100 h-100" onerror="this.onerror=null;this.src='{{ asset('images/default-img.png') }}';">
                         @else
                             <div class="d-flex align-items-center justify-content-center h-100 text-muted">
                                 <i class="bi bi-file-earmark-text display-4"></i>
