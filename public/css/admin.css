@@ -11,42 +11,79 @@ body.admin-body {
     min-height: 100vh;
 }
 
-/* Sidebar */
+/* Proportional & Modern Admin Sidebar */
 .admin-sidebar {
-    width: 260px;
-    background-color: #16201b;
+    width: 270px;
+    background-color: #1e2428;
+    border-right: 1px solid rgba(255, 255, 255, 0.07);
     color: #94a3b8;
     flex-shrink: 0;
     display: flex;
     flex-direction: column;
-    transition: width var(--transition-normal);
+    position: sticky;
+    top: 0;
+    height: 100vh;
     z-index: 1030;
+    transition: transform 0.32s cubic-bezier(0.16, 1, 0.3, 1), width var(--transition-normal);
 }
 .sidebar-header {
-    padding: 1.25rem 1.5rem;
+    padding: 1.15rem 1.25rem;
     border-bottom: 1px solid rgba(255, 255, 255, 0.08);
     display: flex;
     align-items: center;
     justify-content: space-between;
+    background: #191f22;
 }
 .sidebar-brand-title {
     font-family: var(--font-serif);
-    font-size: 1.2rem;
+    font-size: 1.15rem;
     color: #ffffff;
     font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: 0.5px;
 }
 .sidebar-brand-badge {
-    font-size: 0.65rem;
-    color: var(--ubu-accent);
+    font-size: 0.6rem;
+    color: var(--ubu-accent, #0085a2);
     text-transform: uppercase;
     letter-spacing: 1.5px;
     font-weight: 700;
+    margin-top: 2px;
+}
+.btn-sidebar-close {
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    background: rgba(255, 255, 255, 0.05);
+    color: #cbd5e1;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    padding: 0;
+}
+.btn-sidebar-close:hover {
+    background: rgba(239, 68, 68, 0.2);
+    color: #ef4444;
+    border-color: rgba(239, 68, 68, 0.4);
 }
 
 .sidebar-nav {
-    padding: 1rem 0;
+    padding: 0.75rem 0.5rem;
     flex-grow: 1;
     overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255, 255, 255, 0.15) transparent;
+}
+.sidebar-nav::-webkit-scrollbar {
+    width: 4px;
+}
+.sidebar-nav::-webkit-scrollbar-thumb {
+    background-color: rgba(255, 255, 255, 0.15);
+    border-radius: 4px;
 }
 .sidebar-heading {
     font-size: 0.65rem;
@@ -54,13 +91,15 @@ body.admin-body {
     text-transform: uppercase;
     letter-spacing: 1.5px;
     color: #64748b;
-    padding: 0.75rem 1.5rem 0.35rem;
+    padding: 0.85rem 0.85rem 0.35rem;
 }
 .sidebar-link {
     display: flex;
     align-items: center;
     gap: 0.75rem;
-    padding: 0.65rem 1.5rem;
+    padding: 0.58rem 0.85rem;
+    margin-bottom: 0.15rem;
+    border-radius: 8px;
     color: #cbd5e1;
     text-decoration: none;
     font-size: 0.875rem;
@@ -68,18 +107,94 @@ body.admin-body {
     transition: all var(--transition-fast);
 }
 .sidebar-link i {
-    font-size: 1.1rem;
-    width: 20px;
+    font-size: 1.05rem;
+    width: 22px;
+    text-align: center;
+    color: #94a3b8;
+    flex-shrink: 0;
+    transition: color var(--transition-fast);
 }
 .sidebar-link:hover {
     color: #ffffff;
-    background-color: rgba(255, 255, 255, 0.05);
+    background-color: rgba(255, 255, 255, 0.06);
+    transform: translateX(2px);
+}
+.sidebar-link:hover i {
+    color: #ffffff;
 }
 .sidebar-link.active {
     color: #ffffff;
-    background-color: var(--ubu-primary);
+    background-color: var(--ubu-primary, #0085a2);
     font-weight: 600;
-    border-left: 3px solid var(--ubu-accent);
+    box-shadow: 0 3px 10px rgba(0, 133, 162, 0.35);
+}
+.sidebar-link.active i {
+    color: #ffffff;
+}
+
+/* Sidebar Footer User Info */
+.sidebar-footer {
+    padding: 0.85rem 1rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    background: #191f22;
+}
+.btn-sidebar-user {
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: #94a3b8;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+.btn-sidebar-user:hover {
+    color: #ffffff;
+    background: rgba(255, 255, 255, 0.12);
+}
+
+/* Mobile & Tablet Responsive Sidebar (< 992px) */
+@media (max-width: 991.98px) {
+    .admin-sidebar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        height: 100vh;
+        width: 280px;
+        max-width: 85vw;
+        transform: translateX(-100%);
+        transition: transform 0.32s cubic-bezier(0.16, 1, 0.3, 1);
+        box-shadow: 10px 0 35px rgba(0, 0, 0, 0.35);
+        z-index: 1045;
+    }
+    .admin-sidebar.sidebar-open {
+        transform: translateX(0);
+    }
+    .admin-sidebar-backdrop {
+        position: fixed;
+        inset: 0;
+        background-color: rgba(18, 24, 21, 0.55);
+        backdrop-filter: blur(4px);
+        -webkit-backdrop-filter: blur(4px);
+        z-index: 1040;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.3s ease, visibility 0.3s ease;
+    }
+    .admin-sidebar-backdrop.show {
+        opacity: 1;
+        visibility: visible;
+    }
+    .admin-topbar {
+        padding: 0.65rem 1rem;
+    }
+    .admin-content {
+        padding: 1.15rem;
+    }
 }
 
 /* Main Content Area */
@@ -222,7 +337,7 @@ body.admin-body {
     font-family: var(--font-body, 'Plus Jakarta Sans', sans-serif);
     font-size: 0.875rem;
     font-weight: 600;
-    color: var(--ubu-primary, #1b3b2b);
+    color: var(--ubu-primary, #0085a2);
     background-color: #ffffff;
     border: 1.5px solid var(--ubu-border, #e6e4dc);
     border-radius: 8px !important;
@@ -232,19 +347,19 @@ body.admin-body {
 
 .ubu-pagination .page-link:hover,
 .pagination .page-link:hover {
-    color: var(--ubu-primary-hover, #142d21);
-    background-color: var(--ubu-primary-light, #e8efe9);
-    border-color: var(--ubu-accent, #c5a059);
+    color: var(--ubu-primary-hover, #006771);
+    background-color: var(--ubu-primary-light, #e6f6f9);
+    border-color: var(--ubu-accent, #f1c40f);
     z-index: 2;
 }
 
 .ubu-pagination .page-item.active .page-link,
 .pagination .page-item.active .page-link {
     color: #ffffff !important;
-    background-color: var(--ubu-primary, #1b3b2b) !important;
-    border-color: var(--ubu-primary, #1b3b2b) !important;
+    background-color: var(--ubu-primary, #0085a2) !important;
+    border-color: var(--ubu-primary, #0085a2) !important;
     font-weight: 700;
-    box-shadow: 0 3px 8px rgba(27, 59, 43, 0.22);
+    box-shadow: 0 3px 8px rgba(0, 133, 162, 0.22);
     z-index: 3;
 }
 
