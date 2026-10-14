@@ -3,6 +3,54 @@
 @section('title', 'Manajemen Fasilitas')
 
 @section('content')
+@php
+    $iconOptions = [
+        ['class' => 'bi-water', 'label' => 'Kolam'],
+        ['class' => 'bi-cup-hot', 'label' => 'Sarapan'],
+        ['class' => 'bi-cup-straw', 'label' => 'Minuman'],
+        ['class' => 'bi-egg-fried', 'label' => 'Dapur'],
+        ['class' => 'bi-fire', 'label' => 'BBQ / Api'],
+        ['class' => 'bi-wifi', 'label' => 'WiFi'],
+        ['class' => 'bi-tv', 'label' => 'TV'],
+        ['class' => 'bi-snow', 'label' => 'AC'],
+        ['class' => 'bi-droplet-half', 'label' => 'Air Hangat'],
+        ['class' => 'bi-shower', 'label' => 'Shower'],
+        ['class' => 'bi-lightbulb', 'label' => 'Lampu'],
+        ['class' => 'bi-plug', 'label' => 'Colokan'],
+        ['class' => 'bi-door-open', 'label' => 'Pintu Privat'],
+        ['class' => 'bi-p-circle', 'label' => 'Parkir'],
+        ['class' => 'bi-car-front', 'label' => 'Mobil'],
+        ['class' => 'bi-bicycle', 'label' => 'Sepeda'],
+        ['class' => 'bi-airplane', 'label' => 'Antar Bandara'],
+        ['class' => 'bi-geo-alt', 'label' => 'Lokasi'],
+        ['class' => 'bi-person-check', 'label' => 'Butler'],
+        ['class' => 'bi-bell', 'label' => 'Resepsionis'],
+        ['class' => 'bi-clock', 'label' => '24 Jam'],
+        ['class' => 'bi-key', 'label' => 'Kunci'],
+        ['class' => 'bi-telephone', 'label' => 'Telepon'],
+        ['class' => 'bi-shield-check', 'label' => 'Keamanan'],
+        ['class' => 'bi-camera-video', 'label' => 'CCTV'],
+        ['class' => 'bi-compass', 'label' => 'Kiblat'],
+        ['class' => 'bi-book', 'label' => 'Quran / Buku'],
+        ['class' => 'bi-moon-stars', 'label' => 'Nyaman'],
+        ['class' => 'bi-house-heart', 'label' => 'Villa'],
+        ['class' => 'bi-tree', 'label' => 'Taman'],
+        ['class' => 'bi-flower1', 'label' => 'Bunga'],
+        ['class' => 'bi-sun', 'label' => 'Outdoor'],
+        ['class' => 'bi-umbrella', 'label' => 'Payung'],
+        ['class' => 'bi-life-preserver', 'label' => 'Pelampung'],
+        ['class' => 'bi-activity', 'label' => 'Gym'],
+        ['class' => 'bi-controller', 'label' => 'Game'],
+        ['class' => 'bi-music-note', 'label' => 'Musik'],
+        ['class' => 'bi-shop', 'label' => 'Toko'],
+        ['class' => 'bi-suitcase', 'label' => 'Koper'],
+        ['class' => 'bi-people', 'label' => 'Keluarga'],
+        ['class' => 'bi-star', 'label' => 'Bintang'],
+        ['class' => 'bi-heart', 'label' => 'Favorit'],
+        ['class' => 'bi-gem', 'label' => 'Premium'],
+        ['class' => 'bi-check2-circle', 'label' => 'Centang'],
+    ];
+@endphp
 <div class="d-flex justify-content-between align-items-center mb-4">
     <div>
         <h3 class="fw-bold text-dark font-serif mb-1">Manajemen Fasilitas (Amenities)</h3>
@@ -87,8 +135,8 @@
                                             </select>
                                         </div>
                                         <div class="mb-3">
-                                            <label class="form-label">Icon Bootstrap (contoh: bi-wifi, bi-water)</label>
-                                            <input type="text" name="icon" class="form-control font-monospace" value="{{ $a->icon }}" required>
+                                            <label class="form-label">Icon Fasilitas <span class="text-danger">*</span> <span class="fw-normal text-muted small">— tinggal klik gambar</span></label>
+                                            @include('admin.amenities._icon-picker', ['icons' => $iconOptions, 'selected' => $a->icon ?: 'bi-check2-circle', 'prefix' => 'icon-edit-'.$a->id])
                                         </div>
                                         <div class="mb-3">
                                             <label class="form-label">Urutan</label>
@@ -139,8 +187,8 @@
                         </select>
                     </div>
                     <div class="mb-3">
-                        <label class="form-label">Icon Bootstrap</label>
-                        <input type="text" name="icon" class="form-control font-monospace" value="bi-check2-circle" required>
+                        <label class="form-label">Icon Fasilitas <span class="text-danger">*</span> <span class="fw-normal text-muted small">— tinggal klik gambar</span></label>
+                        @include('admin.amenities._icon-picker', ['icons' => $iconOptions, 'selected' => 'bi-water', 'prefix' => 'icon-create'])
                     </div>
                     <div class="mb-3">
                         <label class="form-label">Urutan</label>
@@ -156,3 +204,132 @@
     </div>
 </div>
 @endsection
+
+@push('styles')
+<style>
+    .icon-picker-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(76px, 1fr));
+        gap: 6px;
+        max-height: 220px;
+        overflow-y: auto;
+        border: 1px solid #e2e8f0;
+        border-radius: 10px;
+        padding: 8px;
+        background: #fff;
+    }
+    .icon-picker-opt {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 2px;
+        padding: 8px 4px;
+        min-height: 64px;
+        border: 1.5px solid #e2e8f0;
+        border-radius: 8px;
+        background: #fff;
+        cursor: pointer;
+        transition: all 0.15s ease;
+    }
+    .icon-picker-opt i {
+        font-size: 1.35rem;
+        line-height: 1;
+        color: #334155;
+    }
+    .icon-picker-opt span {
+        font-size: 0.65rem;
+        font-weight: 600;
+        color: #64748b;
+        line-height: 1.1;
+        text-align: center;
+    }
+    .icon-picker-opt:hover {
+        border-color: var(--ubu-primary, #0085a2);
+        background: var(--ubu-primary-light, #e8f5f8);
+    }
+    .icon-picker-opt:hover i {
+        color: var(--ubu-primary, #0085a2);
+    }
+    .icon-picker-opt.active {
+        border-color: var(--ubu-primary, #0085a2);
+        background: var(--ubu-primary-light, #e8f5f8);
+        box-shadow: 0 0 0 2px rgba(0, 133, 162, 0.2);
+    }
+    .icon-picker-opt.active i {
+        color: var(--ubu-primary, #0085a2);
+    }
+    .icon-picker-opt.active span {
+        color: var(--ubu-primary, #0085a2);
+    }
+    .icon-picker-opt.d-none {
+        display: none;
+    }
+</style>
+@endpush
+
+@push('scripts')
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    document.querySelectorAll('.icon-picker').forEach(function (picker) {
+        var prefix = picker.getAttribute('data-picker');
+        var hiddenInput = document.getElementById(prefix + '-input');
+        var preview = document.getElementById(prefix + '-preview');
+        var label = document.getElementById(prefix + '-label');
+        var search = document.getElementById(prefix + '-search');
+        var custom = document.getElementById(prefix + '-custom');
+        var grid = document.getElementById(prefix + '-grid');
+        if (!hiddenInput || !grid) {
+            return;
+        }
+        var buttons = Array.prototype.slice.call(grid.querySelectorAll('.icon-picker-opt'));
+
+        function setSelected(iconClass) {
+            hiddenInput.value = iconClass;
+            if (label) {
+                label.textContent = iconClass;
+            }
+            if (preview) {
+                preview.innerHTML = '<i class="' + iconClass + '"></i>';
+            }
+            if (custom && custom.value !== iconClass) {
+                custom.value = iconClass;
+            }
+            buttons.forEach(function (btn) {
+                var isActive = btn.getAttribute('data-icon') === iconClass;
+                btn.classList.toggle('active', isActive);
+                btn.setAttribute('aria-selected', isActive ? 'true' : 'false');
+            });
+        }
+
+        buttons.forEach(function (btn) {
+            btn.addEventListener('click', function () {
+                setSelected(btn.getAttribute('data-icon'));
+            });
+        });
+
+        if (search) {
+            search.addEventListener('input', function () {
+                var q = search.value.trim().toLowerCase();
+                buttons.forEach(function (btn) {
+                    var hay = btn.getAttribute('data-keywords') || '';
+                    btn.classList.toggle('d-none', q !== '' && hay.indexOf(q) === -1);
+                });
+            });
+        }
+
+        if (custom) {
+            custom.addEventListener('change', function () {
+                var v = custom.value.trim();
+                if (v !== '') {
+                    setSelected(v);
+                }
+            });
+        }
+
+        // Sinkronkan tampilan awal (misal data lama tidak ada di daftar)
+        setSelected(hiddenInput.value || 'bi-check2-circle');
+    });
+});
+</script>
+@endpush
