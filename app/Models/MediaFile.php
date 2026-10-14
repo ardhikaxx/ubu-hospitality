@@ -5,7 +5,6 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Support\Facades\Storage;
 
 class MediaFile extends Model
 {
@@ -38,7 +37,20 @@ class MediaFile extends Model
 
     public function getUrlAttribute(): string
     {
-        return Storage::disk($this->disk)->url($this->path);
+        if (empty($this->path)) {
+            return asset('images/default-img.png');
+        }
+
+        if (str_starts_with($this->path, 'http://') || str_starts_with($this->path, 'https://')) {
+            return $this->path;
+        }
+
+        $cleanPath = ltrim(str_replace('storage/', '', $this->path), '/');
+        if (! str_starts_with($cleanPath, 'uploads/')) {
+            $cleanPath = 'uploads/media/'.$this->filename;
+        }
+
+        return asset($cleanPath);
     }
 
     public function getAltTextAttribute(): ?string
