@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Brand;
+use App\Models\Experience;
 use App\Models\Page;
 use Illuminate\View\View;
 
@@ -79,5 +80,66 @@ class PageController extends Controller
         ];
 
         return view('pages.legal', compact('page', 'seoOverride'));
+    }
+
+    public function celebrity(): View
+    {
+        $page = Page::where('slug', 'celebrity')->with('activeSections')->first();
+
+        $seoOverride = [
+            'title' => 'Celebrity & Influencer Staycation - Ubu Hospitality',
+            'description' => 'Melihat keseruan liburan dan staycation para selebriti, artis, dan figur publik ternama di villa mewah Ubu Hospitality.',
+        ];
+
+        return view('pages.celebrity', compact('page', 'seoOverride'));
+    }
+
+    public function packages(): View
+    {
+        $page = Page::where('slug', 'packages')->with('activeSections')->first();
+        $experiences = Experience::published()->ordered()->get();
+
+        $seoOverride = [
+            'title' => 'Paket Wisata & Layanan Tambahan (Special Packages) - Ubu Hospitality',
+            'description' => 'Layanan eksklusif villa mulai dari In-Villa BBQ, Floating Breakfast, Photo Service, hingga Lava Tour Jeep di Yogyakarta.',
+        ];
+
+        return view('pages.packages', compact('page', 'experiences', 'seoOverride'));
+    }
+
+    public function lifeAtUbu(): View
+    {
+        $page = Page::where('slug', 'life-at-ubu')->with('activeSections')->first();
+
+        $seoOverride = [
+            'title' => 'Life at Ubu - Budaya & Standar Pelayanan Hospitality',
+            'description' => 'Mengenal dedikasi, kehangatan budaya lokal, dan standar pelayanan butler profesional di balik Ubu Hospitality.',
+        ];
+
+        return view('pages.life-at-ubu', compact('page', 'seoOverride'));
+    }
+
+    public function csr(): View
+    {
+        $page = Page::where('slug', 'csr')->with('activeSections')->first();
+
+        $seoOverride = [
+            'title' => 'CSR & Keberlanjutan Komunitas - Ubu Hospitality',
+            'description' => 'Komitmen Ubu Hospitality dalam pemberdayaan masyarakat lokal, pelestarian lingkungan, dan pariwisata berkelanjutan di Yogyakarta.',
+        ];
+
+        return view('pages.csr', compact('page', 'seoOverride'));
+    }
+
+    public function career(): View
+    {
+        $page = Page::where('slug', 'career')->with('activeSections')->first();
+
+        $seoOverride = [
+            'title' => 'Karir & Peluang Bergabung - Ubu Hospitality',
+            'description' => 'Bergabunglah bersama keluarga besar Ubu Hospitality dan kembangkan potensi terbaik Anda di industri manajemen hospitality.',
+        ];
+
+        return view('pages.career', compact('page', 'seoOverride'));
     }
 }
