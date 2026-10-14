@@ -14,7 +14,7 @@
 </div>
 
 <div class="admin-card p-4">
-    <form action="{{ route('admin.promotions.store') }}" method="POST">
+    <form action="{{ route('admin.promotions.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
 
         <div class="row g-3 mb-4">
@@ -50,8 +50,13 @@
                 <input type="text" name="subtitle_id" class="form-control" value="{{ old('subtitle_id') }}" placeholder="Nikmati liburan lebih hemat di seluruh villa Ubu">
             </div>
             <div class="col-md-6">
-                <label class="form-label">URL Banner Gambar</label>
-                <input type="text" name="banner_image" class="form-control" value="{{ old('banner_image', 'https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=1200&q=80') }}">
+                <label class="form-label fw-bold">Upload Banner Promo</label>
+                <input type="file" name="banner_image_file" class="form-control" accept="image/*">
+                <small class="text-muted d-block mt-1">Format: JPG, PNG, WEBP. Maks 5MB. Disimpan otomatis tanpa storage:link.</small>
+            </div>
+            <div class="col-md-6">
+                <label class="form-label">Atau URL Banner Promo (Alternatif)</label>
+                <input type="text" name="banner_image" class="form-control" value="{{ old('banner_image') }}" placeholder="https://...">
             </div>
 
             <!-- Date Periods -->
