@@ -52,7 +52,7 @@
                 @forelse($properties as $prop)
                     <tr>
                         <td style="width: 80px;">
-                            <img src="{{ $prop->featured_image ?: 'https://via.placeholder.com/100x60' }}" alt="{{ $prop->name }}" class="rounded-2" style="width: 70px; height: 45px; object-fit: cover;">
+                            <img src="{{ image_or_default($prop->featured_image) }}" alt="{{ $prop->name }}" class="rounded-2" style="width: 70px; height: 45px; object-fit: cover;" onerror="this.onerror=null;this.src='{{ asset('images/default-img.png') }}';">
                         </td>
                         <td>
                             <div class="fw-bold text-dark">{{ $prop->name }}</div>
