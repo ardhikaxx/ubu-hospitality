@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\AuditLog;
 use App\Models\Brand;
+use App\Services\ImageUploadService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -30,7 +31,7 @@ class BrandController extends Controller
         return view('admin.brands.create');
     }
 
-    public function store(Request $request): RedirectResponse
+    public function store(Request $request, ImageUploadService $imageService): RedirectResponse
     {
         $validated = $request->validate([
             'name' => 'required|string|max:100',
@@ -48,12 +49,32 @@ class BrandController extends Controller
             'is_active' => 'nullable|boolean',
             'character_highlights_raw' => 'nullable|string',
             'cover_image_path' => 'nullable|string',
+            'cover_image_file' => 'nullable|file|mimes:jpeg,png,jpg,webp|max:5120',
             'logo_path' => 'nullable|string',
+            'logo_file' => 'nullable|file|mimes:jpeg,png,jpg,webp,svg|max:2048',
         ]);
 
         $validated['slug'] = ! empty($validated['slug']) ? Str::slug($validated['slug']) : Str::slug($validated['name']);
         $validated['is_active'] = $request->boolean('is_active', true);
         $validated['sort_order'] = (int) ($validated['sort_order'] ?? 0);
+
+        if ($request->hasFile('logo_file')) {
+            $validated['logo_path'] = $imageService->processAndStore(
+                $request->file('logo_file'),
+                'brands',
+                'brand_logo'
+            );
+        }
+        unset($validated['logo_file']);
+
+        if ($request->hasFile('cover_image_file')) {
+            $validated['cover_image_path'] = $imageService->processAndStore(
+                $request->file('cover_image_file'),
+                'brands',
+                'brand_cover'
+            );
+        }
+        unset($validated['cover_image_file']);
 
         if (! empty($validated['character_highlights_raw'])) {
             $lines = array_filter(array_map('trim', explode("\n", $validated['character_highlights_raw'])));
@@ -81,7 +102,7 @@ class BrandController extends Controller
         return view('admin.brands.edit', compact('brand'));
     }
 
-    public function update(Request $request, Brand $brand): RedirectResponse
+    public function update(Request $request, Brand $brand, ImageUploadService $imageService): RedirectResponse
     {
         $validated = $request->validate([
             'name' => 'required|string|max:100',
@@ -99,12 +120,34 @@ class BrandController extends Controller
             'is_active' => 'nullable|boolean',
             'character_highlights_raw' => 'nullable|string',
             'cover_image_path' => 'nullable|string',
+            'cover_image_file' => 'nullable|file|mimes:jpeg,png,jpg,webp|max:5120',
             'logo_path' => 'nullable|string',
+            'logo_file' => 'nullable|file|mimes:jpeg,png,jpg,webp,svg|max:2048',
         ]);
 
         $validated['slug'] = Str::slug($validated['slug']);
         $validated['is_active'] = $request->boolean('is_active');
         $validated['sort_order'] = (int) ($validated['sort_order'] ?? 0);
+
+        if ($request->hasFile('logo_file')) {
+            $validated['logo_path'] = $imageService->replace(
+                $request->file('logo_file'),
+                $brand->logo_path,
+                'brands',
+                'brand_logo'
+            );
+        }
+        unset($validated['logo_file']);
+
+        if ($request->hasFile('cover_image_file')) {
+            $validated['cover_image_path'] = $imageService->replace(
+                $request->file('cover_image_file'),
+                $brand->cover_image_path,
+                'brands',
+                'brand_cover'
+            );
+        }
+        unset($validated['cover_image_file']);
 
         if (! empty($validated['character_highlights_raw'])) {
             $lines = array_filter(array_map('trim', explode("\n", $validated['character_highlights_raw'])));
@@ -129,13 +172,20 @@ class BrandController extends Controller
         return redirect()->route('admin.brands.index')->with('success', "Brand {$brand->name} berhasil diperbarui.");
     }
 
-    public function destroy(Brand $brand): RedirectResponse
+    public function destroy(Brand $brand, ImageUploadService $imageService): RedirectResponse
     {
         $name = $brand->name;
         $id = $brand->id;
 
         if ($brand->properties()->exists()) {
             return back()->with('error', "Brand {$name} tidak dapat dihapus karena masih menaungi properti aktif.");
+        }
+
+        if (! empty($brand->logo_path)) {
+            $imageService->delete($brand->logo_path);
+        }
+        if (! empty($brand->cover_image_path)) {
+            $imageService->delete($brand->cover_image_path);
         }
 
         $brand->delete();
